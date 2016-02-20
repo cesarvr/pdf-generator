@@ -25,7 +25,7 @@ This generates a pdf from a URL, it convert HTML to PDF and returns the file rep
  document.addEventListener('deviceready', function() { 
         
         pdf.htmlToPDF({
-            url: this.$urlShare.val(),
+            url: "http://www.google.es",
             documentSize: "A4",
             landscape: "portrait",
             type: "base64"
@@ -40,7 +40,7 @@ The same but giving HTML without URL.
  document.addEventListener('deviceready', function() { 
         
      pdf.htmlToPDF({
-            data: this.$raw.val(),
+            data: "<html> <h1>  Hello World  </h1> </html>",
             documentSize: "A4",
             landscape: "portrait",
             type: "base64"
