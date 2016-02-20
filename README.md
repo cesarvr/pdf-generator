@@ -51,6 +51,9 @@ The same but giving HTML without URL.
  });
 ```
 
+There also a demo [here].
+
+
 # API reference
 
 #### pdf
@@ -64,11 +67,10 @@ The same but giving HTML without URL.
     - *share* opens IOS menu with all options available, this came handy when you want IOS take ownership of the Doc.  
 
 
-
 Install iOS or Android platform
 
     cordova platform add ios
-    cordova platform add android
+    cordova platform add android [comming soon...]
     
 Run the code
 
@@ -76,6 +78,7 @@ Run the code
 
 ## More Info
 
+[here](https://github.com/cesarvr/pdf-generator-example)
 For more information on setting up Cordova see [the documentation](http://cordova.apache.org/docs/en/4.0.0/guide_cli_index.md.html#The%20Command-Line%20Interface)
 
 For more info on plugins see the [Plugin Development Guide](http://cordova.apache.org/docs/en/4.0.0/guide_hybrid_plugins_index.md.html#Plugin%20Development%20Guide)
