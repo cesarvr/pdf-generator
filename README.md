@@ -2,7 +2,7 @@
 
 Simple plugin to generate (offline) pdf using device native capabilities. Also provide the mecanism to share the pdf to other apps like Mail, etc. 
 
-For now the only ecosystem supported is IOS, but soon will make this plugin available for Android/Windows. 
+For now the only ecosystem supported is IOS, but soon will make this plugin available for Android/Windows.
 
 ## Using
 Clone the plugin
@@ -53,18 +53,16 @@ The same but giving HTML without URL.
 
 # API reference
 
-pdf
-=================
+#### pdf
 
-This method load takes HTML or URL and transform it to HTML. 
+- data: here you sent raw HTML.
+- url: url location of the webpage. 
+- documentSize: for now only support "A4" and "A3". 
+- landscape: portrait or landscape. 
+- type:
+    - *base64* give you the pdf in Base64 format so you can choose the next step. 
+    - *share* opens IOS menu with all options available, this came handy when you want IOS take ownership of the Doc.  
 
-    - data: here you sent raw HTML.
-    - url: url location of the webpage. 
-    - documentSize: for now only support "A4" and "A3". 
-    - landscape: portrait or landscape. 
-    - type: 
-        -"base64" give you the pdf in Base64 format so you can choose the next step. 
-        -"share" opens IOS menu with all options available, this came handy when you want IOS take ownership of the Doc.  
 
 
 Install iOS or Android platform
