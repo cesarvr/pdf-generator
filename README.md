@@ -1,13 +1,11 @@
 # Cordova Hello World Plugin
 
-Simple plugin that returns your string prefixed with hello.
-
-Greeting a user with "Hello, world" is something that could be done in JavaScript. This plugin provides a simple example demonstrating how Cordova plugins work.
+Simple plugin to generate (offline) pdf using device native capabilities. Also provide the mecanism to share the pdf to other apps like Mail, etc. 
 
 ## Using
 Clone the plugin
 
-    $ git clone https://github.com/don/cordova-plugin-hello.git
+    $ git clone https://github.com/cesarvr/pdf-generator
 
 Create a new Cordova Project
 
@@ -16,22 +14,44 @@ Create a new Cordova Project
 Install the plugin
 
     $ cd hello
-    $ cordova plugin add ../cordova-plugin-hello
+    $ cordova plugin add ../pdf-generator
     
 
-Edit `www/js/index.js` and add the following code inside `onDeviceReady`
+Example: 
+
+This generates a pdf from a URL, it convert HTML to PDF and returns the file representation in base64.  
 
 ```js
-    var success = function(message) {
-        alert(message);
-    }
-
-    var failure = function() {
-        alert("Error calling Hello Plugin");
-    }
-
-    hello.greet("World", success, failure);
+ document.addEventListener('deviceready', function() { 
+        
+        pdf.htmlToPDF({
+            url: this.$urlShare.val(),
+            documentSize: "A4",
+            landscape: "portrait",
+            type: "base64"
+        }, this.success, this.failure);
+ 
+ });
 ```
+
+The same but giving HTML without URL. 
+
+```js
+ document.addEventListener('deviceready', function() { 
+        
+     pdf.htmlToPDF({
+            data: this.$raw.val(),
+            documentSize: "A4",
+            landscape: "portrait",
+            type: "base64"
+        }, this.success, this.failure);
+ 
+ });
+```
+
+
+
+
 
 Install iOS or Android platform
 
