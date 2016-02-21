@@ -1,0 +1,31 @@
+{
+  "name": "cordova-pdf-generator",
+  "version": "0.8.5",
+  "description": "is a HTML to PDF (offline) Generator.",
+  "cordova": {
+    "id": "com.html2pdf.generator",
+    "platforms": [
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cesarvr/pdf-generator.git"
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-ios"
+  ],
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.4.0"
+    }
+  ],
+  "author": "cesar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cesarvr/pdf-generator/issues"
+  },
+  "homepage": "https://github.com/cesarvr/pdf-generator#readme"
+}

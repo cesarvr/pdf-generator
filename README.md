@@ -1,10 +1,24 @@
-# Cordova Hello World Plugin
+# cordova-pdf-generator
 
-Simple plugin to generate (offline) pdf using device native capabilities. Also provide the mecanism to share the pdf to other apps like Mail, etc. 
+Simple plugin to generate (offline) pdf. the plugin basically transform HTML to PDF and also provide the mecanism to share the pdf to other apps like Mail, etc. 
 
 For now the only ecosystem supported is IOS, but soon will make this plugin available for Android/Windows.
 
-## Using
+
+##Features 
+
+- Generates a PDF document using a URL or HTML raw data. for better results with raw HTML the CSS should be available for the device. 
+- Open-with menu.  
+- Return the Base64 file representation back, so you can upload the file to a server. 
+
+## How to install the Plugin
+This API can be installed from source or from NPM. Installation from NPM is done through the following:
+
+    cordova plugin add cordova-pdf-generator
+
+
+## Installing the hard way.
+
 Clone the plugin
 
     $ git clone https://github.com/cesarvr/pdf-generator
@@ -51,6 +65,23 @@ The same but giving HTML without URL.
  });
 ```
 
+Opening the pdf with other app menu. 
+
+```js
+ document.addEventListener('deviceready', function() { 
+        
+     pdf.htmlToPDF({
+            data: "<html> <h1>  Hello World  </h1> </html>",
+            documentSize: "A4",
+            landscape: "portrait",
+            type: "share" //use share to open the open-with-menu.
+        }, this.success, this.failure);
+ 
+ });
+```
+
+
+
 There also a demo [here].
 
 
@@ -63,8 +94,12 @@ There also a demo [here].
 - documentSize: for now only support "A4" and "A3". 
 - landscape: portrait or landscape. 
 - type:
-    - *base64* give you the pdf in Base64 format so you can choose the next step. 
+    - *base64* give you the pdf in Base64 format. 
     - *share* opens IOS menu with all options available, this came handy when you want IOS take ownership of the Doc.  
+
+- success callback: only expect one parameter base64 in case you choose 'base64' type option or boolean in case you to share.
+- failure callback: receive error information about what going wrong, for now is just raw exception so i need to improve this.
+
 
 
 Install iOS or Android platform
