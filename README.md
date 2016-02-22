@@ -17,6 +17,13 @@ This API can be installed from source or from NPM. Installation from NPM is done
     cordova plugin add cordova-pdf-generator
 
 
+
+## Installing using NPM 
+
+    npm install cordova-pdf-generator
+    cordova plugins add node_modules/cordova-pdf-generator 
+
+
 ## Installing the hard way.
 
 Clone the plugin
