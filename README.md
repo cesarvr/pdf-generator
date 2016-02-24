@@ -11,12 +11,6 @@ For now the only ecosystem supported is IOS, but soon will make this plugin avai
 - Open-with menu.  
 - Return the Base64 file representation back, so you can upload the file to a server. 
 
-## How to install the Plugin
-This API can be installed from source or from NPM. Installation from NPM is done through the following:
-
-    cordova plugin add cordova-pdf-generator
-
-
 ## Installing using Plugman 
   
     cordova platform add ios 
