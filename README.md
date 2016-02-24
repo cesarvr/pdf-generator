@@ -17,6 +17,11 @@ This API can be installed from source or from NPM. Installation from NPM is done
     cordova plugin add cordova-pdf-generator
 
 
+## Installing using Plugman 
+  
+    cordova platform add ios 
+    plugman install --platform ios --project platforms/ios --plugin cordova-pdf-generator
+
 
 ## Installing using NPM 
 
