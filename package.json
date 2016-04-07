@@ -1,6 +1,6 @@
 {
   "name": "cordova-pdf-generator",
-  "version": "0.9.1",
+  "version": "0.9.4",
   "description": "is a HTML to PDF (offline) Generator.",
   "cordova": {
     "id": "com.html2pdf.generator",
