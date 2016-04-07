@@ -44,7 +44,7 @@
     
     CDVPluginResult *result = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
-                               messageAsString:[pdfData base64EncodedDataWithOptions:0]];
+                               messageAsString:[pdfData base64EncodedStringWithOptions:0]];
     
     
     NSLog(@"sending base64");
