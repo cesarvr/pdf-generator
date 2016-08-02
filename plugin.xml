@@ -1,34 +1,36 @@
-<?xml version="1.0" encoding="utf-8"?>
-<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
-        id="com.html2pdf.generator"
-        version="0.7.0">
-
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="com.html2pdf.generator" version="0.7.0" xmlns="http://www.phonegap.com/ns/plugins/1.0">
   <name>PDFGenerator</name>
-
   <engines>
-    <engine name="cordova" version=">=3.4.0"/>
+    <engine name="cordova" version="&gt;=3.4.0" />
   </engines>
 
-  <asset src="www/pdf.js" target="js/pdf.js"/>
-  
-  <js-module src="www/pdf.js" name="pdf">
-    <clobbers target="pdf"/> 
+  <asset src="www/pdf.js" target="js/pdf.js" />
+  <js-module name="pdf" src="www/pdf.js">
+    <clobbers target="pdf" />
   </js-module>
-
-
   <platform name="ios">
-    
-    <config-file target="config.xml" parent="/widget">
-      <feature name="pdfService">
+    <config-file parent="/widget" target="config.xml">
+      <feature name="PDFGenerator">
         <param name="ios-package" value="PDFGenerator" />
+    </feature>
+  </config-file>
+  <header-file src="src/ios/BNHtmlPdfKit.h" />
+  <header-file src="src/ios/PDFGenerator.h" />
+  <source-file src="src/ios/PDFGenerator.m" />
+  <source-file src="src/ios/BNHtmlPdfKit.m" /></platform>
+  <platform name="android">
+    <config-file parent="/*" target="res/xml/config.xml">
+      <feature name="PDFGenerator">
+        <param name="android-package" value="com.html2pdf.generator.PDFGenerator" />
       </feature>
     </config-file>
+    <config-file parent="/*" target="AndroidManifest.xml">
+    </config-file>
+      <source-file src="src/android/PDFGenerator.java" target-dir="src/com/html2pdf/generator/" />
 
-  	<header-file src="src/ios/BNHtmlPdfKit.h"/>
-    <header-file src="src/ios/PDFGenerator.h" />
-    <source-file src="src/ios/PDFGenerator.m"/>
-    <source-file src="src/ios/BNHtmlPdfKit.m"/>
+      <!-- Adding flyingsaucer API -->
+      <source-file src="src/android/lib/flyingsaucer-R8/core-renderer.jar" target-dir="libs" />
+      <source-file src="src/android/lib/flyingsaucer-R8/iText-4.2.0-com.itextpdf.jar" target-dir="libs" />
   </platform>
-  
-  
 </plugin>
