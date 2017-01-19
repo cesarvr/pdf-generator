@@ -105,17 +105,6 @@ Base URL to use.
  */
 @property (nonatomic, assign) id<BNHtmlPdfKitDelegate> delegate;
 
-
-/**
- Creates a BNHtmlPdfKit object to save a HTML NSString as PDF.
- 
- @param html NSString with the html code.
- @param completion Block to be notified when PDF data is generated.
- @param failure Block to be notified of failure.
- */
-+ (BNHtmlPdfKit *)saveHTMLAsPdf:(NSString *)html pageSize:(BNPageSize)pageSize isLandscape:(BOOL)landscape success:(void (^)(NSData *pdfData))completion failure:(void (^)(NSError *error))failure;
-
-
 /**
 Creates a BNHtmlPdfKit object to save a URL as PDF.
 
@@ -134,9 +123,6 @@ Creates a BNHtmlPdfKit object to save a URL as PDF with BNPageSize.
 @param failure Block to be notified of failure.
 */
 + (BNHtmlPdfKit *)saveUrlAsPdf:(NSURL *)url pageSize:(BNPageSize)pageSize success:(void (^)(NSData *pdfData))completion failure:(void (^)(NSError *error))failure;
-
-
-
 
 /**
 Creates a BNHtmlPdfKit object to save a URL as PDF with BNPageSize and if in landscape.
@@ -255,6 +241,24 @@ Creates a BNHtmlPdfKit object to save a URL as PDF with BNPageSize.
 + (BNHtmlPdfKit *)saveUrlAsPdf:(NSURL *)url toFile:(NSString *)filename customPageSize:(CGSize)pageSize topAndBottomMarginSize:(CGFloat)topAndBottom leftAndRightMarginSize:(CGFloat)leftAndRight success:(void (^)(NSString *filename))completion failure:(void (^)(NSError *error))failure;
 
 
+
+
+/**
+ adding this method to get saveHTMLAsPdf
+
+ @param url URL to save PDF of.
+ @param filename Filename to save file as.
+ @param pageSize CGSize of the page to be generated.
+ @param topAndBottom Top and bottom margin size.
+ @param leftAndRight Left and right margin size.
+ @param completion Block to be notified when PDF file is generated.
+ @param failure Block to be notified of failure.
+ **/
+
++(BNHtmlPdfKit *)saveHTMLAsPdf:(NSString *)html pageSize:(BNPageSize)pageSize isLandscape:(BOOL)landscape  success:(void (^)(NSData *))completion failure:(void (^)(NSError *))failure;
+
+
+
 /**
 Initializes BNHtmlPdfKit with a BNPageSize.
 
@@ -326,7 +330,6 @@ Saves an html string to a PDF file.
 @param file The filename of the pdf file to save.
 */
 - (void)saveUrlAsPdf:(NSURL *)url toFile:(NSString *)file;
-
 
 /**
 Saves an webView to PDF data.
