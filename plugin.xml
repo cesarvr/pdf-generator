@@ -10,14 +10,14 @@
   </engines>
 
   <asset src="www/pdf.js" target="js/pdf.js"/>
-  
+
   <js-module src="www/pdf.js" name="pdf">
-    <clobbers target="pdf"/> 
+    <clobbers target="pdf"/>
   </js-module>
 
 
   <platform name="ios">
-    
+
     <config-file target="config.xml" parent="/widget">
       <feature name="pdfService">
         <param name="ios-package" value="PDFGenerator" />
@@ -29,6 +29,6 @@
     <source-file src="src/ios/PDFGenerator.m"/>
     <source-file src="src/ios/BNHtmlPdfKit.m"/>
   </platform>
-  
-  
+
+
 </plugin>
