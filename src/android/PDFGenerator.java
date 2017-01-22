@@ -1,4 +1,5 @@
-package com.html2pdf.generator;
+package com.pdf.generator;
+
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -7,10 +8,12 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
+import android.print.PrintManager;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 
+import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
 
@@ -36,111 +39,58 @@ public class PDFGenerator extends CordovaPlugin {
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if (action.equals("htmlToPDF")) {
-            String message = args.getString(0);
-            this.coolMethod(message, callbackContext);
+            this.pdfPrinter(args, callbackContext);
+
             return true;
         }
         return false;
     }
 
-    public void testingWebkit(final Canvas _canvas) {
-        LOG.i(APPNAME, "Starting page rendering...");
-
-        Context ctx = this.cordova.getActivity().getApplicationContext();
-        final WebView webview = new WebView(ctx);
-        webview.draw(_canvas);
-        //webview.loadUrl("http://www.google.org/");
-
-        String summary = "<html><body>You scored <b>192</b> points.</body></html>";
-        webview.loadData(summary, "text/html", null);
-
-        Rect rect = new Rect();
-        webview.getDrawingRect(rect);
-
-
-        LOG.i(APPNAME, "Height: ", rect.height());
-        LOG.i(APPNAME, "Width: ", rect.width());
-
-        LOG.i(APPNAME, "Finish page rendering");
-
-        LOG.i(APPNAME, "We finish here!!!");
+    //TODO need improvements.
+    private boolean isValidURL(String url){
+        boolean validation = url.matches("^(http|https)://.*$");
+        Log.i(APPNAME, "this should match:" +validation );
+        if(validation)
+            return true;
+        else
+            return false;
     }
 
+    private void pdfPrinter(final JSONArray args, final CallbackContext callbackContext) throws JSONException{
 
-    private void coolMethod(String message, CallbackContext callbackContext) {
+        final Context ctx = this.cordova.getActivity().getApplicationContext();
+        final CordovaInterface _cordova = this.cordova;
+        final CallbackContext cb = callbackContext;
 
-        // this.webView.getView().draw();
+        _cordova.getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
 
-        final Context ctx = this.cordova.getActivity().getBaseContext();
+                final WebView webview = new WebView(ctx);
 
+                webview.getSettings().setJavaScriptEnabled(true);
 
-                PdfDocument document = new PdfDocument();
-                PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(1000, 1000, 1).create();
-                PdfDocument.Page page = document.startPage(pageInfo);
+                PDFPrinterWebView wvPrinter = new PDFPrinterWebView((PrintManager)
+                        _cordova.getActivity().getSystemService(Context.PRINT_SERVICE));
 
-                //testingWebkit(page.getCanvas());
-
-                webView.getView().draw(page.getCanvas());
-                document.finishPage(page);
-
-                String pathOfMyApp = cordova.getActivity().getFilesDir().getAbsolutePath();
-                File path = getDefaultLocation(pathOfMyApp);
+                wvPrinter.setCordovaCallback(cb);
+                webview.setWebViewClient(wvPrinter);
 
                 try {
-                    document.writeTo(getOutputStream(path));
-                } catch (IOException e) {
+
+                    if(args.getString(0) != null )
+                        webview.loadUrl(args.getString(0));
+
+                     if(args.getString(1) != null )
+                        webview.loadData(args.getString(1), "text/html", null);
+
+                } catch (JSONException e) {
                     e.printStackTrace();
-                    Log.e("PDFGenerator", e.getMessage());
-                    document.close();
+                    Log.e(APPNAME, e.getMessage());
+                    cb.error("Native pasing arguments: "+ e.getMessage());
                 }
-
-                document.close();
-
-                LOG.i(APPNAME, path.getAbsolutePath());
-                OpenWith(path);
-
-    }
-
-
-    private File getDefaultLocation(String path) {
-        return new File(path + "/" + "myfile.pdf");
-    }
-
-    ;
-
-    private OutputStream getOutputStream(File file) {
-        FileOutputStream fs = null;
-        try {
-            fs = new FileOutputStream(file);
-        } catch (FileNotFoundException e) {
-            LOG.d("We Fail miserably", "Salvando fichero");
-            e.printStackTrace();
-            Log.e(APPNAME, e.getMessage());
-        }
-
-        return fs;
-    }
-
-    private void info(File file) {
-        Log.i(APPNAME, "File size " + file.length() / 1024 + " kb");
-        Log.i(APPNAME, "File name " + file.getName());
-        Log.i(APPNAME, "File path " + file.getAbsolutePath());
-    }
-
-    private void OpenWith(File file) {
-        Uri path = Uri.fromFile(file);
-
-        this.info(file);
-
-        Intent pdfIntent = new Intent(Intent.ACTION_VIEW);
-        pdfIntent.setDataAndType(path, "application/pdf");
-
-        try {
-            this.cordova.getActivity().startActivity(pdfIntent);
-        } catch (ActivityNotFoundException e) {
-            e.printStackTrace();
-            Log.e(APPNAME, e.getMessage());
-        }
+            }
+        });
     }
 
 
