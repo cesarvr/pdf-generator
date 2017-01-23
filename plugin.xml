@@ -22,6 +22,9 @@
             </config-file>
 
             <source-file src="src/android/PDFGenerator.java" target-dir="src/com/pdf/generator/"/>
+            <source-file src="src/android/PDFPrinter.java" target-dir="src/com/pdf/generator/"/>
+            <source-file src="src/android/PDFPrinterWebView.java" target-dir="src/com/pdf/generator/"/>
+
         </platform>
 
         <platform name="ios">
