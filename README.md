@@ -1,10 +1,9 @@
 # cordova-pdf-generator
 
-Simple plugin to generate (offline) pdf. the plugin basically transform HTML to PDF and also provide the mechanism to share the pdf to other apps like Mail, etc.
-
-For now the only ecosystem supported is IOS, but soon will make this plugin available for Android/Windows.
+Simple plugin to generate (offline) pdf. the plugin basically transform HTML to PDF and also provide the mechanism to share the pdf to other apps like Mail, etc. For now works in iOS and Android, if you want to add other platform feel free contribute.   
 
 The iOS HTML to PDF transformation is based in this work [BNHtmlPdfKit](https://github.com/brentnycum/BNHtmlPdfKit), I just add a new method to allow transformation between plain HTML to PDF.
+
 
 ##Features
 
