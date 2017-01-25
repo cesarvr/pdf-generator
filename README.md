@@ -12,6 +12,11 @@ The iOS HTML to PDF transformation is based in this work [BNHtmlPdfKit](https://
 - Return the Base64 file representation back, so you can upload the file to a server (IOS only).
 
 
+## Supported Platforms
+
+* Android
+* iOS 
+
 ## Installing using Plugman
 
     cordova platform add ios
