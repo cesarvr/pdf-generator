@@ -14,7 +14,8 @@
   },
   "keywords": [
     "ecosystem:cordova",
-    "cordova-ios"
+    "cordova-ios", 
+    "cordova-android"
   ],
   "engines": [
     {
