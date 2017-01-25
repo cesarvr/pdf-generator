@@ -9,17 +9,23 @@ import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
 import android.webkit.WebView;
 
+import org.apache.cordova.LOG;
+
 /**
  * Created by cesar on 22/01/2017.
  */
 
 public class PDFPrinter extends PrintDocumentAdapter {
 
+    static final String APPNAME = "PDFPrinter";
+
     private PrintDocumentAdapter mWrappedInstance = null;
+    private WebView webView = null;
 
     public PDFPrinter(WebView webView){
         // change this line with webView.createPrintDocumentAdapter(String), in the future.
-        mWrappedInstance = webView.createPrintDocumentAdapter();
+        this.mWrappedInstance = webView.createPrintDocumentAdapter();
+        this.webView = webView;
     }
 
     @Override
@@ -43,10 +49,11 @@ public class PDFPrinter extends PrintDocumentAdapter {
 
     @Override
     public void onFinish() {
+        LOG.i(APPNAME, "Cleaning pdfwriter & webView objects.");
         mWrappedInstance.onFinish();
         // Intercept the finish call to know when printing is done
         // and destroy the WebView as it is expensive to keep around.
-        //webView.destroy();
-        //WebView = null;
+       // this.webView.destroy();
+        //this.webView = null;
     }
 }

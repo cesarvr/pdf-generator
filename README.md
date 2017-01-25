@@ -4,13 +4,14 @@ Simple plugin to generate (offline) pdf. the plugin basically transform HTML to 
 
 For now the only ecosystem supported is IOS, but soon will make this plugin available for Android/Windows.
 
-The iOS HTML to PDF transformation is based in this work [BNHtmlPdfKit](https://github.com/brentnycum/BNHtmlPdfKit), I just add a new method to allow transformation between plain HTML to PDF. 
+The iOS HTML to PDF transformation is based in this work [BNHtmlPdfKit](https://github.com/brentnycum/BNHtmlPdfKit), I just add a new method to allow transformation between plain HTML to PDF.
 
 ##Features
 
 - Generates a PDF document using a URL or HTML raw data. for better results with raw HTML the CSS should be available for the device.
-- Open-with menu.  
-- Return the Base64 file representation back, so you can upload the file to a server.
+- Open-with menu, open the context menu and (push to cloud, print, save, mail, etc...).  
+- Return the Base64 file representation back, so you can upload the file to a server (IOS only).
+
 
 ## Installing using Plugman
 
@@ -88,8 +89,9 @@ Opening the pdf with other app menu.
 ```
 
 
+# Demo
 
-There also a demo [here].
+You can find [Demo](https://github.com/cesarvr/pdf-generator).
 
 
 # API reference
@@ -105,6 +107,7 @@ There also a demo [here].
     - *share* opens IOS menu with all options available, this came handy when you want IOS take ownership of the Doc.  
 
 - success callback: only expect one parameter base64 in case you choose 'base64' type option or boolean in case you to share.
+-
 - failure callback: receive error information about what going wrong, for now is just raw exception so i need to improve this.
 
 
@@ -112,11 +115,12 @@ There also a demo [here].
 Install iOS or Android platform
 
     cordova platform add ios
-    cordova platform add android [comming soon...]
+    cordova platform add android
 
 Run the code
 
-    cordova run
+    cordova run ios 
+    cordova run android
 
 ## More Info
 

@@ -35,6 +35,15 @@ import java.io.OutputStream;
 public class PDFGenerator extends CordovaPlugin {
 
     private final static String APPNAME = "PDFGenerator";
+    private WebView offscreenWebview = null;
+
+    public WebView getOffscreenWebkitInstance(Context ctx){
+        LOG.i(APPNAME, "Mounting offscreen webview");
+        if(this.offscreenWebview == null)
+            return this.offscreenWebview = new WebView(ctx);
+        else
+            return this.offscreenWebview;
+    }
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
@@ -46,14 +55,9 @@ public class PDFGenerator extends CordovaPlugin {
         return false;
     }
 
-    //TODO need improvements.
-    private boolean isValidURL(String url){
-        boolean validation = url.matches("^(http|https)://.*$");
-        Log.i(APPNAME, "this should match:" +validation );
-        if(validation)
-            return true;
-        else
-            return false;
+    @Override
+    public void onResume(boolean multitasking) {
+        super.onResume(multitasking);
     }
 
     private void pdfPrinter(final JSONArray args, final CallbackContext callbackContext) throws JSONException{
@@ -62,19 +66,18 @@ public class PDFGenerator extends CordovaPlugin {
         final CordovaInterface _cordova = this.cordova;
         final CallbackContext cb = callbackContext;
 
+
         _cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-
-                final WebView webview = new WebView(ctx);
-
+                WebView webview = getOffscreenWebkitInstance(ctx);
                 webview.getSettings().setJavaScriptEnabled(true);
 
-                PDFPrinterWebView wvPrinter = new PDFPrinterWebView((PrintManager)
+                PDFPrinterWebView printerWebView = new PDFPrinterWebView((PrintManager)
                         _cordova.getActivity().getSystemService(Context.PRINT_SERVICE));
 
-                wvPrinter.setCordovaCallback(cb);
-                webview.setWebViewClient(wvPrinter);
+                printerWebView.setCordovaCallback(cb);
+                webview.setWebViewClient(printerWebView);
 
                 try {
 

@@ -30,12 +30,9 @@ public class PDFPrinterWebView extends WebViewClient {
     public void onPageFinished(WebView view, String url) {
         super.onPageFinished(view, url);
 
-       // PdfDocument document = PDFRender.renderToPDF(view);
-        //PDFRender.saveDocument(document);
-
         PDFPrinter pdfPrinter = new PDFPrinter(view);
         printManager.print("PDF",pdfPrinter, null);
 
-        this.cordovaCallback.success(1);
+        this.cordovaCallback.success("success");
     }
 }
