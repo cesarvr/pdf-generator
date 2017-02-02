@@ -66,7 +66,9 @@
     _docController.UTI = @"com.adobe.pdf";
     
     NSLog(@"opening menu");
-    BOOL result = [_docController presentOptionsMenuFromRect:self.viewController.view.frame inView:self.viewController.view animated:YES];
+    CGSize viewSize = self.viewController.view.bounds.size;
+    CGRect areaRectForOpenMenu = CGRectMake(viewSize.width / 2, viewSize.height, 0.0, 0.0);
+    BOOL result = [_docController presentOptionsMenuFromRect:areaRectForOpenMenu inView:self.viewController.view animated:YES];
     
     CDVPluginResult *ret = [CDVPluginResult
                                resultWithStatus:CDVCommandStatus_OK
