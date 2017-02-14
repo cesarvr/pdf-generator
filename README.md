@@ -17,6 +17,11 @@ The iOS HTML to PDF transformation is based in this work [BNHtmlPdfKit](https://
 * Android
 * iOS 
 
+## Installing the easy way (Cordova CLI)
+
+    cordova plugin add cordova-pdf-generator
+
+
 ## Installing using Plugman
 
     cordova platform add ios
