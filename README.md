@@ -100,7 +100,7 @@ Opening the pdf with other app menu.
 
 # Demo
 
-You can find [Demo](https://github.com/cesarvr/pdf-generator).
+You can find [Demo](https://github.com/feedhenry-staff/pdf-generator-example).
 
 
 # API reference
@@ -113,10 +113,8 @@ You can find [Demo](https://github.com/cesarvr/pdf-generator).
 - landscape: portrait or landscape.
 - type:
     - *base64* give you the pdf in Base64 format.
-    - *share* opens IOS menu with all options available, this came handy when you want IOS take ownership of the Doc.  
-
+    - *share* opens IOS menu with all options available, this came handy when you want IOS take ownership of the Doc.
 - success callback: only expect one parameter base64 in case you choose 'base64' type option or boolean in case you to share.
--
 - failure callback: receive error information about what going wrong, for now is just raw exception so i need to improve this.
 
 
