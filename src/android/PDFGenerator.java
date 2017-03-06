@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
+import android.os.ParcelFileDescriptor;
 import android.print.PrintManager;
 import android.util.Log;
 import android.view.View;
@@ -64,7 +65,7 @@ public class PDFGenerator extends CordovaPlugin {
 
         final Context ctx = this.cordova.getActivity().getApplicationContext();
         final CordovaInterface _cordova = this.cordova;
-        final CallbackContext cb = callbackContext;
+        final CallbackContext cordovaCallback = callbackContext;
 
 
         _cordova.getActivity().runOnUiThread(new Runnable() {
@@ -74,9 +75,9 @@ public class PDFGenerator extends CordovaPlugin {
                 webview.getSettings().setJavaScriptEnabled(true);
 
                 PDFPrinterWebView printerWebView = new PDFPrinterWebView((PrintManager)
-                        _cordova.getActivity().getSystemService(Context.PRINT_SERVICE));
+                        _cordova.getActivity().getSystemService(Context.PRINT_SERVICE), ctx);
 
-                printerWebView.setCordovaCallback(cb);
+                printerWebView.setCordovaCallback(cordovaCallback);
                 webview.setWebViewClient(printerWebView);
 
                 try {
@@ -85,16 +86,17 @@ public class PDFGenerator extends CordovaPlugin {
                         webview.loadUrl(args.getString(0));
 
                      if(args.getString(1) != null && !args.getString(1).equals("null")  )
-                        webview.loadData(args.getString(1), "text/html", null);
+                        webview.loadData(args.getString(1), "text/html; charset=UTF-8", null);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.e(APPNAME, e.getMessage());
-                    cb.error("Native pasing arguments: "+ e.getMessage());
+                    cordovaCallback.error("Native pasing arguments: "+ e.getMessage());
                 }
             }
         });
     }
+
 
 
 }
