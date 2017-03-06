@@ -28,6 +28,8 @@ public class PDFPrinter extends PrintDocumentAdapter {
         this.webView = webView;
     }
 
+
+
     @Override
     public void onStart() {
         mWrappedInstance.onStart();
@@ -47,13 +49,11 @@ public class PDFPrinter extends PrintDocumentAdapter {
         mWrappedInstance.onWrite(pages, destination, cancellationSignal, callback);
     }
 
+
+
     @Override
     public void onFinish() {
         LOG.i(APPNAME, "Cleaning pdfwriter & webView objects.");
         mWrappedInstance.onFinish();
-        // Intercept the finish call to know when printing is done
-        // and destroy the WebView as it is expensive to keep around.
-       // this.webView.destroy();
-        //this.webView = null;
     }
 }
