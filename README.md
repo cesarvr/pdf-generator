@@ -100,7 +100,7 @@ Opening the pdf with other app menu.
 
 # Demo
 
-You can find [Demo](https://github.com/cesarvr/pdf-generator).
+You can find [Demo](https://github.com/cesarvr/pdf-generator-example).
 
 
 # API reference
