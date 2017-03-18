@@ -140,8 +140,8 @@ export class HomePage {
 
 # Demo
 
-Cordova/Javascript [Demo](https://github.com/cesarvr/pdf-generator-example).
-Ionic/Angular 2 [Example](https://github.com/cesarvr/ionic2-basic-example)
+- Cordova/Javascript [Demo](https://github.com/cesarvr/pdf-generator-example).
+- Ionic/Angular 2 [Example](https://github.com/cesarvr/ionic2-basic-example)
 
 
 # API reference
