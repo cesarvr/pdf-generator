@@ -80,6 +80,7 @@ The same but giving HTML without URL.
         }, this.success, this.failure);
 
  });
+
 ```
 
 Opening the pdf with other app menu.
@@ -96,6 +97,45 @@ Opening the pdf with other app menu.
 
  });
 ```
+
+
+## Ionic/Angular 2 Example: 
+
+```js
+import { Component } from '@angular/core';
+
+import { NavController } from 'ionic-angular';
+
+declare var cordova:any;    //global; 
+
+@Component({
+  selector: 'page-home',
+  templateUrl: 'home.html'
+})
+export class HomePage {
+
+  constructor(public navCtrl: NavController) {
+      const before = Date.now();
+
+            document.addEventListener('deviceready', () => {
+                console.log('DEVICE READY FIRED AFTER', (Date.now() - before), 'ms');
+
+                //generate the pdf.
+                cordova.plugins.pdf.htmlToPDF({
+                        data: "<html> <h1>  Hello World  </h1> </html>",
+                        //url: "www.cloud.org/template.html"
+                    },
+                    (sucess) => console.log('sucess: ', sucess),
+                    (error) => console.log('error:', error));
+            });
+
+   
+  }
+
+}
+ 
+```
+
 
 
 # Demo

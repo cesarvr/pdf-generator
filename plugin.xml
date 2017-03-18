@@ -8,6 +8,8 @@
     </engines>
 
     <js-module src="www/pdf.js" name="pdf">
+        <clobbers target="cordova.plugins.pdf" />
+        <clobbers target="pugin.pdf"/>
         <clobbers target="pdf"/>
     </js-module>
 
