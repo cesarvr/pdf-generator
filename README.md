@@ -5,7 +5,7 @@ Simple plugin to generate (offline) pdf. the plugin basically transform HTML to 
 The iOS HTML to PDF transformation is based in this work [BNHtmlPdfKit](https://github.com/brentnycum/BNHtmlPdfKit), I just add a new method to allow transformation between plain HTML to PDF.
 
 
-##Features
+## Features
 
 - Generates a PDF document using a URL or HTML raw data. for better results with raw HTML the CSS should be available for the device.
 - Open-with menu, open the context menu and (push to cloud, print, save, mail, etc...).  
@@ -140,7 +140,8 @@ export class HomePage {
 
 # Demo
 
-You can find [Demo](https://github.com/cesarvr/pdf-generator-example).
+Cordova/Javascript [Demo](https://github.com/cesarvr/pdf-generator-example).
+Ionic/Angular 2 [Example](https://github.com/cesarvr/ionic2-basic-example)
 
 
 # API reference
