@@ -45,28 +45,11 @@ public class PDFPrinterWebView extends WebViewClient {
     public void onPageFinished(WebView view, String url) {
         super.onPageFinished(view, url);
 
-        PrintDocumentAdapter pda = view.createPrintDocumentAdapter("pdf");
         PDFPrinter pdfPrinter = new PDFPrinter(view);
 
-        printManager.print("PDF", pda, null);
+        printManager.print("PDF", pdfPrinter, null);
 
         this.cordovaCallback.success("success");
     }
 
-    private ParcelFileDescriptor createTemporaryFile(){
-        ParcelFileDescriptor pfd = null;
-
-        // context being the Activity pointer
-        File outputDir = this.ctx.getCacheDir();
-
-        try {
-            File tempFile = File.createTempFile("pdf-file", "pdf", outputDir);
-            pfd = ParcelFileDescriptor.open(tempFile, ParcelFileDescriptor.MODE_READ_WRITE);
-        } catch (IOException e) {
-            e.printStackTrace();
-            LOG.e(TAG, e.getMessage());
-        }
-
-        return pfd;
-    }
 }

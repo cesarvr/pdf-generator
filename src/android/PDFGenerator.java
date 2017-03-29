@@ -71,16 +71,20 @@ public class PDFGenerator extends CordovaPlugin {
         _cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                try {
                 WebView webview = getOffscreenWebkitInstance(ctx);
                 webview.getSettings().setJavaScriptEnabled(true);
+                PrintManager printManager = (PrintManager) cordova
+                        .getActivity()
+                        .getSystemService(Context.PRINT_SERVICE);
 
-                PDFPrinterWebView printerWebView = new PDFPrinterWebView((PrintManager)
-                        _cordova.getActivity().getSystemService(Context.PRINT_SERVICE), ctx);
+                PDFPrinterWebView printerWebView =
+                        new PDFPrinterWebView(printManager, ctx);
 
                 printerWebView.setCordovaCallback(cordovaCallback);
                 webview.setWebViewClient(printerWebView);
 
-                try {
+
 
                     if(args.getString(0) != null && !args.getString(0).equals("null") )
                         webview.loadUrl(args.getString(0));
