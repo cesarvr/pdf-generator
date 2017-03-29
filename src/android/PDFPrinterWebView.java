@@ -45,11 +45,10 @@ public class PDFPrinterWebView extends WebViewClient {
     public void onPageFinished(WebView view, String url) {
         super.onPageFinished(view, url);
 
-        PrintDocumentAdapter pda = view.createPrintDocumentAdapter("boom");
+        PrintDocumentAdapter pda = view.createPrintDocumentAdapter("pdf");
         PDFPrinter pdfPrinter = new PDFPrinter(view);
 
-        printManager.print("PDF", pdfPrinter, null);
-
+        printManager.print("PDF", pda, null);
 
         this.cordovaCallback.success("success");
     }
@@ -69,17 +68,5 @@ public class PDFPrinterWebView extends WebViewClient {
         }
 
         return pfd;
-    }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void getDocumentObject(WebView view){
-        PrintDocumentAdapter document = view.createPrintDocumentAdapter("pdf-generator");
-        PageRange pr = new PageRange(0,5);
-        PageRange prs[] = new PageRange[1];
-        prs[0] = pr;
-        PrintDocumentAdapter.WriteResultCallback wc;
-
-        //wc.onWriteFinished();
-        //document.onWrite(prs, createTemporaryFile(), new CancellationSignal(), PrintDocumentAdapter.WriteResultCallback());
     }
 }
