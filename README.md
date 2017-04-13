@@ -7,7 +7,7 @@ The iOS HTML to PDF transformation is based in this work [BNHtmlPdfKit](https://
 
 ## Features
 
-- Generates a PDF document using a URL or HTML raw data. for better results with raw HTML the CSS should be available for the device.
+- Generates a PDF document using a URL or HTML.
 - Open-with menu, open the context menu and (push to cloud, print, save, mail, etc...).  
 - Return the Base64 file representation back, so you can upload the file to a server (IOS only).
 
@@ -15,7 +15,7 @@ The iOS HTML to PDF transformation is based in this work [BNHtmlPdfKit](https://
 ## Supported Platforms
 
 * Android
-* iOS 
+* iOS
 
 ## Installing the easy way (Cordova CLI)
 
@@ -99,14 +99,14 @@ Opening the pdf with other app menu.
 ```
 
 
-## Ionic/Angular 2 Example: 
+## Ionic/Angular 2 Example:
 
 ```js
 import { Component } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
 
-declare var cordova:any;    //global; 
+declare var cordova:any;    //global;
 
 @Component({
   selector: 'page-home',
@@ -129,11 +129,11 @@ export class HomePage {
                     (error) => console.log('error:', error));
             });
 
-   
+
   }
 
 }
- 
+
 ```
 
 
@@ -146,8 +146,11 @@ export class HomePage {
 
 # API reference
 
-#### pdf
+#### PDF
 
+Due to the different way each platform generates the PDF, options not supported in the platform are just silently ignored.
+
+Android/iOS
 - data: here you sent raw HTML.
 - url: url location of the webpage.
 - documentSize: for now only support "A4" and "A3".
@@ -168,7 +171,7 @@ Install iOS or Android platform
 
 Run the code
 
-    cordova run ios 
+    cordova run ios
     cordova run android
 
 ## More Info
