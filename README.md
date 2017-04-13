@@ -150,16 +150,21 @@ export class HomePage {
 
 Due to the different way each platform generates the PDF, options not supported in the platform are just silently ignored.
 
-Android/iOS
-- data: here you sent raw HTML.
-- url: url location of the webpage.
-- documentSize: for now only support "A4" and "A3".
-- landscape: portrait or landscape.
+- Android/iOS
+  - data: here you sent raw HTML.
+  - url: url location of the webpage.
+
+- iOS  
+  - documentSize: for now only support "A4" and "A3".
+  - landscape: portrait or landscape.
+  - success callback: only expect one parameter base64 in case you choose 'base64' type option or boolean in case you to share.
 - type:
     - *base64* give you the pdf in Base64 format.
-    - *share* opens IOS menu with all options available, this came handy when you want IOS take ownership of the Doc.  
-- fileName: saved file name (Android only)
-- success callback: only expect one parameter base64 in case you choose 'base64' type option or boolean in case you to share.
+    - *share* opens IOS menu with all options available, this came handy when you want IOS take ownership of the generated document..
+
+- Android
+  - fileName: saved file name
+
 - failure callback: receive error information about what going wrong, for now is just raw exception so i need to improve this.
 
 
