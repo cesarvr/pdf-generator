@@ -10,7 +10,8 @@ module.exports = {
          var docSize = options.documentSize || "A4";
          var landscape = options.landscape || "portrait";
          var type = options.type || "base64";
+         var fileName = options.fileName || "default";
         
-        cordova.exec(successCallback, errorCallback, "PDFService", "htmlToPDF", [ url, data, docSize, landscape, type ]);
+        cordova.exec(successCallback, errorCallback, "PDFService", "htmlToPDF", [ url, data, docSize, landscape, type, fileName ]);
     }
 };

@@ -1,6 +1,5 @@
 package com.pdf.generator;
 
-
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -29,7 +28,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-
 /**
  * This class echoes a string called from JavaScript.
  */
@@ -38,9 +36,9 @@ public class PDFGenerator extends CordovaPlugin {
     private final static String APPNAME = "PDFGenerator";
     private WebView offscreenWebview = null;
 
-    public WebView getOffscreenWebkitInstance(Context ctx){
+    public WebView getOffscreenWebkitInstance(Context ctx) {
         LOG.i(APPNAME, "Mounting offscreen webview");
-        if(this.offscreenWebview == null)
+        if (this.offscreenWebview == null)
             return this.offscreenWebview = new WebView(ctx);
         else
             return this.offscreenWebview;
@@ -61,46 +59,43 @@ public class PDFGenerator extends CordovaPlugin {
         super.onResume(multitasking);
     }
 
-    private void pdfPrinter(final JSONArray args, final CallbackContext callbackContext) throws JSONException{
-
+    private void pdfPrinter(final JSONArray args, final CallbackContext callbackContext) throws JSONException {
         final Context ctx = this.cordova.getActivity().getApplicationContext();
         final CordovaInterface _cordova = this.cordova;
         final CallbackContext cordovaCallback = callbackContext;
-
 
         _cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 try {
-                WebView webview = getOffscreenWebkitInstance(ctx);
-                webview.getSettings().setJavaScriptEnabled(true);
-                PrintManager printManager = (PrintManager) cordova
-                        .getActivity()
-                        .getSystemService(Context.PRINT_SERVICE);
+                    WebView webview = getOffscreenWebkitInstance(ctx);
+                    webview.getSettings().setJavaScriptEnabled(true);
+                    PrintManager printManager = (PrintManager) cordova.getActivity()
+                            .getSystemService(Context.PRINT_SERVICE);
 
-                PDFPrinterWebView printerWebView =
-                        new PDFPrinterWebView(printManager, ctx);
+                    PDFPrinterWebView printerWebView = new PDFPrinterWebView(printManager, ctx);
 
-                printerWebView.setCordovaCallback(cordovaCallback);
-                webview.setWebViewClient(printerWebView);
+                    String fileNameArg = args.getString(5);
+                    if (fileNameArg != null) {
+                        printerWebView.setFileName(fileNameArg);
+                    }
 
+                    printerWebView.setCordovaCallback(cordovaCallback);
+                    webview.setWebViewClient(printerWebView);
 
-
-                    if(args.getString(0) != null && !args.getString(0).equals("null") )
+                    if (args.getString(0) != null && !args.getString(0).equals("null"))
                         webview.loadUrl(args.getString(0));
 
-                     if(args.getString(1) != null && !args.getString(1).equals("null")  )
+                    if (args.getString(1) != null && !args.getString(1).equals("null"))
                         webview.loadData(args.getString(1), "text/html; charset=UTF-8", null);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.e(APPNAME, e.getMessage());
-                    cordovaCallback.error("Native pasing arguments: "+ e.getMessage());
+                    cordovaCallback.error("Native pasing arguments: " + e.getMessage());
                 }
             }
         });
     }
-
-
 
 }
