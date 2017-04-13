@@ -22,13 +22,10 @@ public class PDFPrinter extends PrintDocumentAdapter {
     private PrintDocumentAdapter mWrappedInstance = null;
     private WebView webView = null;
 
-    public PDFPrinter(WebView webView){
-        // change this line with webView.createPrintDocumentAdapter(String), in the future.
-        this.mWrappedInstance = webView.createPrintDocumentAdapter();
+    public PDFPrinter(WebView webView, String fileName) {
+        this.mWrappedInstance = webView.createPrintDocumentAdapter(fileName);
         this.webView = webView;
     }
-
-
 
     @Override
     public void onStart() {
@@ -37,19 +34,15 @@ public class PDFPrinter extends PrintDocumentAdapter {
 
     @Override
     public void onLayout(PrintAttributes oldAttributes, PrintAttributes newAttributes,
-                         CancellationSignal cancellationSignal, LayoutResultCallback callback,
-                         Bundle extras) {
-        mWrappedInstance.onLayout(oldAttributes, newAttributes, cancellationSignal,
-                callback, extras);
+            CancellationSignal cancellationSignal, LayoutResultCallback callback, Bundle extras) {
+        mWrappedInstance.onLayout(oldAttributes, newAttributes, cancellationSignal, callback, extras);
     }
 
     @Override
-    public void onWrite(PageRange[] pages, ParcelFileDescriptor destination,
-                        CancellationSignal cancellationSignal, WriteResultCallback callback) {
+    public void onWrite(PageRange[] pages, ParcelFileDescriptor destination, CancellationSignal cancellationSignal,
+            WriteResultCallback callback) {
         mWrappedInstance.onWrite(pages, destination, cancellationSignal, callback);
     }
-
-
 
     @Override
     public void onFinish() {

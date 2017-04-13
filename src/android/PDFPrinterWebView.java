@@ -31,13 +31,19 @@ public class PDFPrinterWebView extends WebViewClient {
     private CallbackContext cordovaCallback;
     private Context ctx;
 
+    private String fileName;
+
     public PDFPrinterWebView(PrintManager _printerManager, Context ctx){
         printManager = _printerManager;
         this.ctx = ctx;
     }
 
     public void setCordovaCallback(CallbackContext cordovaCallback){
-     this.cordovaCallback = cordovaCallback;
+        this.cordovaCallback = cordovaCallback;
+    }
+
+    public void setFileName(String fileName){
+        this.fileName = fileName;
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -45,7 +51,7 @@ public class PDFPrinterWebView extends WebViewClient {
     public void onPageFinished(WebView view, String url) {
         super.onPageFinished(view, url);
 
-        PDFPrinter pdfPrinter = new PDFPrinter(view);
+        PDFPrinter pdfPrinter = new PDFPrinter(view, fileName);
 
         printManager.print("PDF", pdfPrinter, null);
 
