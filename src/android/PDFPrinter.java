@@ -23,7 +23,11 @@ public class PDFPrinter extends PrintDocumentAdapter {
     private WebView webView = null;
 
     public PDFPrinter(WebView webView, String fileName) {
-        this.mWrappedInstance = webView.createPrintDocumentAdapter(fileName);
+        if(Build.VERSION.SDK_INT >= 21 ){
+            this.mWrappedInstance = webView.createPrintDocumentAdapter(fileName);    
+        } else {
+            this.mWrappedInstance = webView.createPrintDocumentAdapter();    
+        }
         this.webView = webView;
     }
 
