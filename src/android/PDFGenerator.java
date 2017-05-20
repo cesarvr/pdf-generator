@@ -29,8 +29,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * This class echoes a string called from JavaScript.
- */
+* This class echoes a string called from JavaScript.
+*/
 public class PDFGenerator extends CordovaPlugin {
 
     private final static String APPNAME = "PDFGenerator";
@@ -38,10 +38,13 @@ public class PDFGenerator extends CordovaPlugin {
 
     public WebView getOffscreenWebkitInstance(Context ctx) {
         LOG.i(APPNAME, "Mounting offscreen webview");
-        if (this.offscreenWebview == null)
-            return this.offscreenWebview = new WebView(ctx);
-        else
+        if (this.offscreenWebview == null){
+            WebView view = new WebView(ctx);
+            view.getSettings().setDatabaseEnabled(true);
+            return this.offscreenWebview = view;
+        }else{
             return this.offscreenWebview;
+        }
     }
 
     @Override
