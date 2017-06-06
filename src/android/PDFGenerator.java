@@ -73,7 +73,8 @@ public class PDFGenerator extends CordovaPlugin {
                     PrintManager printManager = (PrintManager) cordova.getActivity()
                             .getSystemService(Context.PRINT_SERVICE);
 
-                    PDFPrinterWebView printerWebView = new PDFPrinterWebView(printManager, ctx);
+                    boolean outputBase64 = args.getString(4) != null && args.getString(4).equals("base64");
+                    PDFPrinterWebView printerWebView = new PDFPrinterWebView(printManager, ctx, outputBase64);
 
                     String fileNameArg = args.getString(5);
                     if (fileNameArg != null) {

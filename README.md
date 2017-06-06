@@ -9,7 +9,7 @@ The iOS HTML to PDF transformation is based in this work [BNHtmlPdfKit](https://
 
 - Generates a PDF document using a URL or HTML.
 - Open-with menu, open the context menu and (push to cloud, print, save, mail, etc...).  
-- Return the Base64 file representation back, so you can upload the file to a server (IOS only).
+- Return the Base64 file representation back, so you can upload the file to a server (IOS & Android only).
 
 
 ## Supported Platforms
@@ -163,7 +163,12 @@ Due to the different way each platform generates the PDF, options not supported 
     - *share* opens IOS menu with all options available, this came handy when you want IOS take ownership of the generated document..
 
 - Android
-  - fileName: saved file name
+  - documentSize: parameter is ignored but required.
+  - landscape: parameter is ignored but required.
+  - type: 
+    - *base64* give you the pdf in Base64 format.
+    - *share* opens Android native PDF viewer.
+  - fileName : saved file name
 
 - failure callback: receive error information about what going wrong, for now is just raw exception so i need to improve this.
 
