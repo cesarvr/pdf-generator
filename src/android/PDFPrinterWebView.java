@@ -29,7 +29,9 @@ import android.os.Environment;
 public class PDFPrinterWebView extends WebViewClient {
 
     private PrintManager printManager = null;
-    private static final String TAG = "PDFPrinterWebView";
+    private static final String TAG  = "PDFPrinterWebView";
+    private static final String PRINT_JOB_NAME = "PDF_GENERATOR";
+    private static final String PRINT_SUCESS = "sucess";
 
     //Cordova Specific, delete this safely if not using cordova.
     private CallbackContext cordovaCallback;
@@ -58,20 +60,26 @@ public class PDFPrinterWebView extends WebViewClient {
         super.onPageFinished(webView, url);
         String result = "failure";
         if(this.outputBase64){
-            String jobName = "Base64 Document";
+
             PrintAttributes attributes = new PrintAttributes.Builder()
                 .setMediaSize(PrintAttributes.MediaSize.ISO_A4)
                 .setResolution(new PrintAttributes.Resolution("pdf", "pdf", 600, 600))
                 .setMinMargins(PrintAttributes.Margins.NO_MARGINS).build();
-            PDFtoBase64 pdfToBase64 = new PDFtoBase64(ctx, attributes);
-            pdfToBase64.process(webView.createPrintDocumentAdapter(jobName));
-            result = pdfToBase64.getAsBase64();
+
+            PDFtoBase64 pdfToBase64 = new PDFtoBase64(this.cordovaCallback, attributes);
+
+            PrintDocumentAdapter pda = webView.createPrintDocumentAdapter(PRINT_JOB_NAME);
+            ParcelFileDescriptor tmp = Utilities.getCacheFile(this.ctx);
+
+            pdfToBase64.process(pda, tmp);
+
         } else {
             PDFPrinter pdfPrinter = new PDFPrinter(webView, fileName);
-            printManager.print("PDF", pdfPrinter, null);
-            result = "success";
+            printManager.print(PRINT_JOB_NAME, pdfPrinter, null);
+            this.cordovaCallback.success(PRINT_SUCESS);
+
         }
 
-        this.cordovaCallback.success(result);
+
     }
 }
