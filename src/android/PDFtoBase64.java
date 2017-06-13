@@ -20,6 +20,7 @@ import java.io.IOException;
 public class PDFtoBase64 {
 
     private static final String TAG = PDFtoBase64.class.getSimpleName();
+    private static final String FILE_EMPTY_ERROR = "Error: Empty PDF File";
 
 
     private final PrintAttributes printAttributes;
@@ -47,7 +48,7 @@ public class PDFtoBase64 {
             encodedBase64 = Base64.encodeToString( bytes, Base64.DEFAULT );
 
             if(encodedBase64.isEmpty()){
-                cordovaCallback.error("Error: Empty PDF File");
+                cordovaCallback.error(FILE_EMPTY_ERROR);
             }else
                 cordovaCallback.success(encodedBase64);
 
