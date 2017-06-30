@@ -90,7 +90,7 @@ public class PDFGenerator extends CordovaPlugin {
                         webview.loadUrl(args.getString(0));
 
                     if (args.getString(1) != null && !args.getString(1).equals("null"))
-                        webview.loadData(args.getString(1), "text/html; charset=UTF-8", null);
+                        webview.loadDataWithBaseURL(null,args.getString(1), "text/HTML","UTF-8", null);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
