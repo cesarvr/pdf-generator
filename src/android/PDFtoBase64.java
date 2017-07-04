@@ -60,22 +60,68 @@ public class PDFtoBase64 {
 
     public void process(final PrintDocumentAdapter printAdapter) {
 
+        final CancellationSignal cancellationSignal = new CancellationSignal();
+
+
+        final PageRange[] ALL_PAGES_ARRAY = new PageRange[]{PageRange.ALL_PAGES};
+
+
+        cancellationSignal.setOnCancelListener(new CancellationSignal.OnCancelListener() {
+            @Override
+            public void onCancel() {
+                Log.e(TAG, "onCancel: The action was cancelled");
+            }
+
+        });
+
+
         final PrintDocumentAdapter.WriteResultCallback myWriteResultCallback = new PrintDocumentAdapter.WriteResultCallback() {
+
+
+
             @Override
             public void onWriteFinished(PageRange[] pages) {
                 super.onWriteFinished(pages);
                 getAsBase64();
+            }
+
+            @Override
+            public void onWriteCancelled() {
+                super.onWriteCancelled();
+
+                Log.d(TAG, "onWriteCancelled: Cancelled!!");
+            }
+
+            @Override
+            public void onWriteFailed(CharSequence error) {
+                super.onWriteFailed(error);
+
+                Log.d(TAG, "onWriteFailed: Failed!!! " + error.toString() );
             }
         };
 
         final PrintDocumentAdapter.LayoutResultCallback myLayoutResultCallback = new PrintDocumentAdapter.LayoutResultCallback() {
             @Override
             public void onLayoutFinished(PrintDocumentInfo info, boolean changed) {
-                printAdapter.onWrite(null, getOutputFile(), new CancellationSignal(), myWriteResultCallback);
+
+                printAdapter.onWrite(ALL_PAGES_ARRAY, getOutputFile(), cancellationSignal, myWriteResultCallback);
+            }
+
+            @Override
+            public void onLayoutFailed(CharSequence error) {
+                super.onLayoutFailed(error);
+
+                Log.e(TAG, "onLayoutFailed: " + error.toString() );
             }
         };
 
         printAdapter.onLayout(null, printAttributes, null, myLayoutResultCallback, null);
+    }
+
+
+    private void Test(){
+
+
     }
 
     private ParcelFileDescriptor getOutputFile() {

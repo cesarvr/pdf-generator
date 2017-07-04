@@ -41,6 +41,8 @@ public class PDFGenerator extends CordovaPlugin {
         if (this.offscreenWebview == null){
             WebView view = new WebView(ctx);
             view.getSettings().setDatabaseEnabled(true);
+            view.getSettings().setJavaScriptEnabled(true);
+
             return this.offscreenWebview = view;
         }else{
             return this.offscreenWebview;
@@ -72,7 +74,7 @@ public class PDFGenerator extends CordovaPlugin {
             public void run() {
                 try {
                     WebView webview = getOffscreenWebkitInstance(ctx);
-                    webview.getSettings().setJavaScriptEnabled(true);
+
                     PrintManager printManager = (PrintManager) cordova.getActivity()
                             .getSystemService(Context.PRINT_SERVICE);
 
