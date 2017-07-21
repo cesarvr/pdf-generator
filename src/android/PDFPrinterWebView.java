@@ -64,7 +64,11 @@ public class PDFPrinterWebView extends WebViewClient {
                 .setResolution(new PrintAttributes.Resolution("pdf", "pdf", 600, 600))
                 .setMinMargins(PrintAttributes.Margins.NO_MARGINS).build();
             PDFtoBase64 pdfToBase64 = new PDFtoBase64(attributes, this.ctx, this.cordovaCallback);
-            pdfToBase64.process(webView.createPrintDocumentAdapter(PRINT_JOB_NAME));
+            if(Build.VERSION.SDK_INT >= 21 ){
+                pdfToBase64.process(webView.createPrintDocumentAdapter(PRINT_JOB_NAME));
+            } else {
+                pdfToBase64.process(webView.createPrintDocumentAdapter());
+            }
         } else {
             PDFPrinter pdfPrinter = new PDFPrinter(webView, fileName);
             printManager.print(PRINT_JOB_NAME, pdfPrinter, null);
