@@ -13,10 +13,7 @@
         CDVPluginResult *result = [CDVPluginResult
                                    resultWithStatus: CDVCommandStatus_OK
                                    messageAsString: [error description] ];
-        
-        NSLog(@"error");
-        
-        
+ 
         [self.commandDelegate sendPluginResult:result callbackId:[command callbackId]];
         self.hasPendingOperation = NO;
     };
@@ -56,7 +53,8 @@
     // Create a filePath for the pdf.
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"file.pdf"];
+    NSString* fileName = [command argumentAtIndex:5 withDefault:@"file"];
+    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:fileName];
     
     // Save the PDF. UIDocumentInteractionController has to use a physical PDF, not just the data.
     [pdfData writeToFile:filePath atomically:YES];
@@ -97,11 +95,11 @@
     
 
     
-    NSString* url = [command argumentAtIndex:0 withDefault:NULL];
+    NSString* url  = [command argumentAtIndex:0 withDefault:NULL];
     NSString* data = [command argumentAtIndex:1 withDefault:NULL];
     NSString* type =  [command argumentAtIndex:2 withDefault:@"A4"];
     NSString* _landscape =  [command argumentAtIndex:3 withDefault:@"portrait"];
-    NSString* option = [command argumentAtIndex:4 withDefault:@"base64"];
+    NSString* option     = [command argumentAtIndex:4 withDefault:@"base64"];
 
     
     BNPageSize pageSize;
