@@ -98,6 +98,49 @@ Opening the pdf with other app menu.
  });
 ```
 
+Loading from Device Filesystem.
+
+
+```js
+
+      //Example: file:///android_asset/index.html 
+
+      function printInternalFile(param) {
+
+        /* generate pdf using url. */
+        if(cordova.platformId === 'ios') {
+          
+          // To use window.resolveLocalFileSystemURL, we need this plugin https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-file/ 
+          // You can add this by doing cordova plugin add cordova-plugin-file or 
+          // cordova plugin add https://github.com/apache/cordova-plugin-file
+          window.resolveLocalFileSystemURL(cordova.file.applicationDirectory,
+            (url) => {
+              var file = param.replace('file:///android_asset/',url.nativeURL);
+
+              pdf.htmlToPDF({
+                  url: file,
+                  documentSize: "A4",
+                  landscape: "portrait",
+                  type: "share"
+              }, this.success, this.failure);
+            },
+            (err) =>
+            console.log('error', err, '  args ->', arguments)
+          );
+        }else {
+
+        pdf.htmlToPDF({
+            url: param,
+            documentSize: "A4",
+            landscape: "portrait",
+            type: "share"
+        }, this.success, this.failure);
+       }
+    }
+```
+
+[Gist](https://github.com/brentnycum/BNHtwmlPdfKi://gist.github.com/cesarvr/6dc7156963dbfa7606b54c85fae84dba§)
+
 
 ## Ionic/Angular 2 Example:
 
