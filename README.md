@@ -139,7 +139,7 @@ Loading from Device Filesystem.
     }
 ```
 
-[Gist](https://github.com/brentnycum/BNHtwmlPdfKi://gist.github.com/cesarvr/6dc7156963dbfa7606b54c85fae84dba§)
+[Gist](https://gist.github.com/cesarvr/6dc7156963dbfa7606b54c85fae84dba)
 
 
 ## Ionic/Angular 2 Example:
