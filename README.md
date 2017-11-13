@@ -78,11 +78,11 @@ Example:
 
 ```js
 let options = {
-                documentSize: "A4",
-                type: "base64"
+                documentSize: 'A4',
+                type: 'base64'
               }
 
-pdf.usingURL("http://www.google.es", options)
+pdf.usingURL('http://www.google.es', options)
     .then(()=>'ok')
     .catch((err)=>console.err(err))
 ```
@@ -97,11 +97,11 @@ Example:
 
 ```js
 let options = {
-                documentSize: "A4",
-                type: "base64"
+                documentSize: 'A4',
+                type: 'base64'
               }
 
-pdf.usingData("<html><h1>Hello World</h1></html>", options)
+pdf.usingData('<html><h1>Hello World</h1></html>', options)
     .then((base64)=>'ok')   // it will
     .catch((err)=>console.err(err))
 ```
@@ -118,11 +118,11 @@ pdf.usingData("<html><h1>Hello World</h1></html>", options)
 
 ```js
 let options = {
-                documentSize: "A4",
-                type: "base64"
+                documentSize: 'A4',
+                type: 'base64'
               }
 
-pdf.usingData("<html><h1>Hello World</h1></html>", options)
+pdf.usingData('<html><h1>Hello World</h1></html>', options)
     .then((base64)=> console.log(base64) )   // returns base64:JVBERi0xLjQKJdPr6eEKMSAwIG9iago8PC9DcmVh...
     .catch((err)=>console.err(err))
 
@@ -135,11 +135,11 @@ pdf.usingData("<html><h1>Hello World</h1></html>", options)
 
 ```js
 let options = {
-                documentSize: "A4",
-                type: "share"
+                documentSize: 'A4',
+                type: 'share'
               }
 
-pdf.usingData( "<html><h1>Hello World</h1></html>", options)
+pdf.usingData( '<html><h1>Hello World</h1></html>', options)
     .then((stats)=> console.log('status', stats) )   // ok..., ok if it was able to handle the file to the OS.  
     .catch((err)=>console.err(err))
 
@@ -150,6 +150,20 @@ pdf.usingData( "<html><h1>Hello World</h1></html>", options)
 ##### filename
 
 - You can specify the name of the PDF file.  
+
+```js
+let options = {
+                documentSize: 'A4',
+                type: 'share',
+                fileName: 'myFile.pdf'
+              }
+
+pdf.usingData( '<html><h1>Hello World</h1></html>', options)
+    .then((stats)=> console.log('status', stats) )   // ok..., ok if it was able to handle the file to the OS.  
+    .catch((err)=>console.err(err))
+
+```
+
 
 
 
@@ -173,9 +187,9 @@ pdf.usingData( "<html><h1>Hello World</h1></html>", options)
               var file = param.replace('file:///android_asset/',url.nativeURL);
 
               pdf.fromURL(file, {
-                  documentsize: "a4",
-                  landscape: "portrait",
-                  type: "share"
+                  documentsize: 'a4',
+                  landscape: 'portrait',
+                  type: 'share'
               })
                 .then((stats)=> this.preparetogobackground )
                 .catch((err)=> this.showerror)
@@ -185,9 +199,9 @@ pdf.usingData( "<html><h1>Hello World</h1></html>", options)
           );
         }else {
               pdf.fromURL(param, {
-                  documentsize: "a4",
-                  landscape: "portrait",
-                  type: "share"
+                  documentsize: 'a4',
+                  landscape: 'portrait',
+                  type: 'share'
               })
                 .then((stats)=> this.preparetogobackground )
                 .catch((err)=> this.showerror)
@@ -217,7 +231,7 @@ export class HomePage {
                 console.log('DEVICE READY FIRED AFTER', (Date.now() - before), 'ms');
 
                 //generate the pdf.
-                cordova.plugins.pdf.usingData( "<html> <h1>  Hello World  </h1> </html>", options )
+                cordova.plugins.pdf.usingData( '<html> <h1>  Hello World  </h1> </html>', options )
                 .then(()=>'ok')
                 .catch((err)=>console.err(err))
   }
@@ -236,10 +250,10 @@ This generates a pdf from a URL, it convert HTML to PDF and returns the file rep
  document.addEventListener('deviceready', function() {
 
         pdf.htmlToPDF({
-            url: "http://www.google.es",
-            documentSize: "A4",
-            landscape: "portrait",
-            type: "base64"
+            url: 'http://www.google.es',
+            documentSize: 'A4',
+            landscape: 'portrait',
+            type: 'base64'
         }, this.success, this.failure);
 
  });
@@ -251,10 +265,10 @@ The same but giving HTML without URL.
  document.addEventListener('deviceready', function() {
 
      pdf.htmlToPDF({
-            data: "<html> <h1>  Hello World  </h1> </html>",
-            documentSize: "A4",
-            landscape: "portrait",
-            type: "base64"
+            data: '<html> <h1>  Hello World  </h1> </html>',
+            documentSize: 'A4',
+            landscape: 'portrait',
+            type: 'base64'
         }, this.success, this.failure);
 
  });
@@ -267,10 +281,10 @@ Opening the pdf with other app menu.
  document.addEventListener('deviceready', function() {
 
      pdf.htmlToPDF({
-            data: "<html> <h1>  Hello World  </h1> </html>",
-            documentSize: "A4",
-            landscape: "portrait",
-            type: "share" //use share to open the open-with-menu.
+            data: '<html> <h1>  Hello World  </h1> </html>',
+            documentSize: 'A4',
+            landscape: 'portrait',
+            type: 'share' //use share to open the open-with-menu.
         }, this.success, this.failure);
 
  });
