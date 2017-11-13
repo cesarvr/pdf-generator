@@ -102,8 +102,10 @@ let options = {
               }
 
 pdf.usingData( "<html> <h1>  Hello World  </h1> </html>", options )
-.then(()=>'ok')
+.then((base64)=>'ok')   // it will 
 .catch((err)=>console.err(err))
+
+
 ```
 
 #### Options
@@ -114,7 +116,37 @@ pdf.usingData( "<html> <h1>  Hello World  </h1> </html>", options )
 
 ##### type
 
-- ```base64``` if this option is passed on the with type parameter you get back an Base64 representation of the PDF, which is very handy to assume control over the document.
+- ```base64``` it will return a Base64 representation of the PDF file. ```{ type: 'base64' } ```
+```
+let options = {
+                documentSize: "A4",
+                type: "base64"
+              }
+
+pdf.usingData( "<html> <h1>  Hello World  </h1> </html>", options )
+.then((base64)=> console.log(base64) )   // returns base64:JVBERi0xLjQKJdPr6eEKMSAwIG9iago8PC9DcmVh... 
+.catch((err)=>console.err(err))
+
+
+```
+
+
+
+- ```share``` It will delegate the file to the OS printing infraestructure, this basically will allow the user to handle the file himself using the mobile OS features available.
+
+```
+let options = {
+                documentSize: "A4",
+                type: "share"
+              }
+
+pdf.usingData( "<html> <h1>  Hello World  </h1> </html>", options )
+.then((stats)=> console.log('status', stats) )   // ok..., ok if it was able to handle the file to the OS.  
+.catch((err)=>console.err(err))
+
+```
+
+
 
 ##### filename
 
@@ -122,6 +154,9 @@ pdf.usingData( "<html> <h1>  Hello World  </h1> </html>", options )
 
 
 **Legacy Examples**
+
+
+Here are examples to use the legacy method pdf API below 1.9. 
 
 This generates a pdf from a URL, it convert HTML to PDF and returns the file representation in base64.  
 
@@ -188,25 +223,26 @@ Loading from Device Filesystem.
             (url) => {
               var file = param.replace('file:///android_asset/',url.nativeURL);
 
-              pdf.htmlToPDF({
-                  url: file,
-                  documentSize: "A4",
+              pdf.fromURL(file, {
+                  documentsize: "a4",
                   landscape: "portrait",
                   type: "share"
-              }, this.success, this.failure);
+              })
+                .then((stats)=> this.preparetogobackground )
+                .catch((err)=> this.showerror)
             },
             (err) =>
             console.log('error', err, '  args ->', arguments)
           );
         }else {
-
-        pdf.htmlToPDF({
-            url: param,
-            documentSize: "A4",
-            landscape: "portrait",
-            type: "share"
-        }, this.success, this.failure);
-       }
+              pdf.fromURL(param, {
+                  documentsize: "a4",
+                  landscape: "portrait",
+                  type: "share"
+              })
+                .then((stats)=> this.preparetogobackground )
+                .catch((err)=> this.showerror)
+        }
     }
 ```
 
