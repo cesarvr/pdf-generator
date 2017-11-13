@@ -50,7 +50,78 @@ Install the plugin
     $ cordova plugin add ../pdf-generator
 
 
+
+## API
+
+Before using the plugin just make sure that the device is ready by listening to the onDeviceReady event:
+
+```
+document.addEventListener('deviceready', function(){
+  // start using cordova plugin here.
+})
+
+```
+
+
+### Description
+
+The plugin expose a global variable named **pdf**, this variable expose the following functions.
+
+###### pdf.usingURL( url, options )
+
+Creates a PDF using a URL, it download the document into an in memory Webkit object, and renders it into a PDF.
+
+- **url** : Takes the URL with the HTML document you want to transform to PDF, once the document finish loading is render by webkit and transformed into a PDF file.
+
+
 Example:
+
+```
+let options = {
+                documentSize: "A4",
+                type: "base64"
+              }
+
+pdf.usingURL( "http://www.google.es", options )
+.then(()=>'ok')
+.catch((err)=>console.err(err))
+```
+
+###### pdf.usingData( url, options )
+
+Creates a PDF using string with the HTML representation, it download the document into an in memory Webkit object, and renders it into a PDF.
+
+- **data** : Takes a string representing the HTML document, it load this in Webkit and creates a PDF.  
+
+Example:
+
+```
+let options = {
+                documentSize: "A4",
+                type: "base64"
+              }
+
+pdf.usingData( "<html> <h1>  Hello World  </h1> </html>", options )
+.then(()=>'ok')
+.catch((err)=>console.err(err))
+```
+
+#### Options
+
+##### documentSize
+
+- Its take ```A4, A3, A2``` this specify the format of the paper, just available in iOS, in Android this option is ignored.
+
+##### type
+
+- ```base64``` if this option is passed on the with type parameter you get back an Base64 representation of the PDF, which is very handy to assume control over the document.
+
+##### filename
+
+- You can specify the name of the PDF file.  
+
+
+**Legacy Examples**
 
 This generates a pdf from a URL, it convert HTML to PDF and returns the file representation in base64.  
 
@@ -103,15 +174,15 @@ Loading from Device Filesystem.
 
 ```js
 
-      //Example: file:///android_asset/index.html 
+      //Example: file:///android_asset/index.html
 
       function printInternalFile(param) {
 
         /* generate pdf using url. */
         if(cordova.platformId === 'ios') {
-          
-          // To use window.resolveLocalFileSystemURL, we need this plugin https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-file/ 
-          // You can add this by doing cordova plugin add cordova-plugin-file or 
+
+          // To use window.resolveLocalFileSystemURL, we need this plugin https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-file/
+          // You can add this by doing cordova plugin add cordova-plugin-file or
           // cordova plugin add https://github.com/apache/cordova-plugin-file
           window.resolveLocalFileSystemURL(cordova.file.applicationDirectory,
             (url) => {
@@ -164,15 +235,9 @@ export class HomePage {
                 console.log('DEVICE READY FIRED AFTER', (Date.now() - before), 'ms');
 
                 //generate the pdf.
-                cordova.plugins.pdf.htmlToPDF({
-                        data: "<html> <h1>  Hello World  </h1> </html>",
-                        //url: "www.cloud.org/template.html"
-                    },
-                    (sucess) => console.log('sucess: ', sucess),
-                    (error) => console.log('error:', error));
-            });
-
-
+                cordova.plugins.pdf.usingData( "<html> <h1>  Hello World  </h1> </html>", options )
+                .then(()=>'ok')
+                .catch((err)=>console.err(err))
   }
 
 }
@@ -208,7 +273,7 @@ Due to the different way each platform generates the PDF, options not supported 
 - Android
   - documentSize: parameter is ignored but required.
   - landscape: parameter is ignored but required.
-  - type: 
+  - type:
     - *base64* give you the pdf in Base64 format.
     - *share* opens Android native PDF viewer.
   - fileName : saved file name
