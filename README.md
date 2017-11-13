@@ -102,7 +102,7 @@ let options = {
               }
 
 pdf.usingData("<html><h1>Hello World</h1></html>", options)
-    .then((base64)=>'ok')   // it will 
+    .then((base64)=>'ok')   // it will
     .catch((err)=>console.err(err))
 ```
 
@@ -114,7 +114,7 @@ pdf.usingData("<html><h1>Hello World</h1></html>", options)
 
 ##### type
 
-- ```base64``` it will return a Base64 representation of the PDF file. ```{ type: 'base64' } ```
+- ```base64``` it will return a Base64 representation of the PDF file. ```{ type: 'base64' } ``, is not type is provided this one is choosen by default. `
 
 ```js
 let options = {
@@ -123,7 +123,7 @@ let options = {
               }
 
 pdf.usingData("<html><h1>Hello World</h1></html>", options)
-    .then((base64)=> console.log(base64) )   // returns base64:JVBERi0xLjQKJdPr6eEKMSAwIG9iago8PC9DcmVh... 
+    .then((base64)=> console.log(base64) )   // returns base64:JVBERi0xLjQKJdPr6eEKMSAwIG9iago8PC9DcmVh...
     .catch((err)=>console.err(err))
 
 
@@ -152,10 +152,83 @@ pdf.usingData( "<html><h1>Hello World</h1></html>", options)
 - You can specify the name of the PDF file.  
 
 
-**Legacy Examples**
 
+#### Other Use Cases
+##### Loading from Device Filesystem.
 
-Here are examples to use the legacy method pdf API below 1.9. 
+```js
+
+      //Example: file:///android_asset/index.html
+
+      function printInternalFile(param) {
+
+        /* generate pdf using url. */
+        if(cordova.platformId === 'ios') {
+
+          // To use window.resolveLocalFileSystemURL, we need this plugin https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-file/
+          // You can add this by doing cordova plugin add cordova-plugin-file or
+          // cordova plugin add https://github.com/apache/cordova-plugin-file
+          window.resolveLocalFileSystemURL(cordova.file.applicationDirectory,
+            (url) => {
+              var file = param.replace('file:///android_asset/',url.nativeURL);
+
+              pdf.fromURL(file, {
+                  documentsize: "a4",
+                  landscape: "portrait",
+                  type: "share"
+              })
+                .then((stats)=> this.preparetogobackground )
+                .catch((err)=> this.showerror)
+            },
+            (err) =>
+            console.log('error', err, '  args ->', arguments)
+          );
+        }else {
+              pdf.fromURL(param, {
+                  documentsize: "a4",
+                  landscape: "portrait",
+                  type: "share"
+              })
+                .then((stats)=> this.preparetogobackground )
+                .catch((err)=> this.showerror)
+        }
+    }
+```
+
+##### Ionic/Angular 2 Example:
+
+```js
+import { Component } from '@angular/core';
+
+import { NavController } from 'ionic-angular';
+
+declare var cordova:any;    //global;
+
+@Component({
+  selector: 'page-home',
+  templateUrl: 'home.html'
+})
+export class HomePage {
+
+  constructor(public navCtrl: NavController) {
+      const before = Date.now();
+
+            document.addEventListener('deviceready', () => {
+                console.log('DEVICE READY FIRED AFTER', (Date.now() - before), 'ms');
+
+                //generate the pdf.
+                cordova.plugins.pdf.usingData( "<html> <h1>  Hello World  </h1> </html>", options )
+                .then(()=>'ok')
+                .catch((err)=>console.err(err))
+  }
+
+}
+
+```
+
+#### Deprecated
+
+Here are examples to use the deprecated methods.
 
 This generates a pdf from a URL, it convert HTML to PDF and returns the file representation in base64.  
 
@@ -201,82 +274,6 @@ Opening the pdf with other app menu.
         }, this.success, this.failure);
 
  });
-```
-
-Loading from Device Filesystem.
-
-
-```js
-
-      //Example: file:///android_asset/index.html
-
-      function printInternalFile(param) {
-
-        /* generate pdf using url. */
-        if(cordova.platformId === 'ios') {
-
-          // To use window.resolveLocalFileSystemURL, we need this plugin https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-file/
-          // You can add this by doing cordova plugin add cordova-plugin-file or
-          // cordova plugin add https://github.com/apache/cordova-plugin-file
-          window.resolveLocalFileSystemURL(cordova.file.applicationDirectory,
-            (url) => {
-              var file = param.replace('file:///android_asset/',url.nativeURL);
-
-              pdf.fromURL(file, {
-                  documentsize: "a4",
-                  landscape: "portrait",
-                  type: "share"
-              })
-                .then((stats)=> this.preparetogobackground )
-                .catch((err)=> this.showerror)
-            },
-            (err) =>
-            console.log('error', err, '  args ->', arguments)
-          );
-        }else {
-              pdf.fromURL(param, {
-                  documentsize: "a4",
-                  landscape: "portrait",
-                  type: "share"
-              })
-                .then((stats)=> this.preparetogobackground )
-                .catch((err)=> this.showerror)
-        }
-    }
-```
-
-[Gist](https://gist.github.com/cesarvr/6dc7156963dbfa7606b54c85fae84dba)
-
-
-## Ionic/Angular 2 Example:
-
-```js
-import { Component } from '@angular/core';
-
-import { NavController } from 'ionic-angular';
-
-declare var cordova:any;    //global;
-
-@Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
-})
-export class HomePage {
-
-  constructor(public navCtrl: NavController) {
-      const before = Date.now();
-
-            document.addEventListener('deviceready', () => {
-                console.log('DEVICE READY FIRED AFTER', (Date.now() - before), 'ms');
-
-                //generate the pdf.
-                cordova.plugins.pdf.usingData( "<html> <h1>  Hello World  </h1> </html>", options )
-                .then(()=>'ok')
-                .catch((err)=>console.err(err))
-  }
-
-}
-
 ```
 
 
