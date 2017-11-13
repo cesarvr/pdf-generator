@@ -67,7 +67,7 @@ document.addEventListener('deviceready', function(){
 
 The plugin expose a global variable named **pdf**, this variable expose the following functions.
 
-##### pdf.usingURL( url, options )
+#### pdf.usingURL( url, options )
 
 Creates a PDF using a URL, it download the document into an in memory Webkit object, and renders it into a PDF.
 
@@ -87,7 +87,7 @@ pdf.usingURL( "http://www.google.es", options )
 .catch((err)=>console.err(err))
 ```
 
-##### pdf.usingData( url, options )
+#### pdf.usingData( url, options )
 
 Creates a PDF using string with the HTML representation, it download the document into an in memory Webkit object, and renders it into a PDF.
 
