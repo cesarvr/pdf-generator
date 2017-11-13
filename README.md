@@ -55,7 +55,7 @@ Install the plugin
 
 Before using the plugin just make sure that the device is ready by listening to the onDeviceReady event:
 
-```
+```js
 document.addEventListener('deviceready', function(){
   // start using cordova plugin here.
 })
@@ -76,15 +76,15 @@ Creates a PDF using a URL, it download the document into an in memory Webkit obj
 
 Example:
 
-```
+```js
 let options = {
                 documentSize: "A4",
                 type: "base64"
               }
 
-pdf.usingURL( "http://www.google.es", options )
-.then(()=>'ok')
-.catch((err)=>console.err(err))
+pdf.usingURL("http://www.google.es", options)
+    .then(()=>'ok')
+    .catch((err)=>console.err(err))
 ```
 
 #### pdf.usingData( url, options )
@@ -95,17 +95,15 @@ Creates a PDF using string with the HTML representation, it download the documen
 
 Example:
 
-```
+```js
 let options = {
                 documentSize: "A4",
                 type: "base64"
               }
 
-pdf.usingData( "<html> <h1>  Hello World  </h1> </html>", options )
-.then((base64)=>'ok')   // it will 
-.catch((err)=>console.err(err))
-
-
+pdf.usingData("<html><h1>Hello World</h1></html>", options)
+    .then((base64)=>'ok')   // it will 
+    .catch((err)=>console.err(err))
 ```
 
 #### Options
@@ -117,15 +115,16 @@ pdf.usingData( "<html> <h1>  Hello World  </h1> </html>", options )
 ##### type
 
 - ```base64``` it will return a Base64 representation of the PDF file. ```{ type: 'base64' } ```
-```
+
+```js
 let options = {
                 documentSize: "A4",
                 type: "base64"
               }
 
-pdf.usingData( "<html> <h1>  Hello World  </h1> </html>", options )
-.then((base64)=> console.log(base64) )   // returns base64:JVBERi0xLjQKJdPr6eEKMSAwIG9iago8PC9DcmVh... 
-.catch((err)=>console.err(err))
+pdf.usingData("<html><h1>Hello World</h1></html>", options)
+    .then((base64)=> console.log(base64) )   // returns base64:JVBERi0xLjQKJdPr6eEKMSAwIG9iago8PC9DcmVh... 
+    .catch((err)=>console.err(err))
 
 
 ```
@@ -134,15 +133,15 @@ pdf.usingData( "<html> <h1>  Hello World  </h1> </html>", options )
 
 - ```share``` It will delegate the file to the OS printing infraestructure, this basically will allow the user to handle the file himself using the mobile OS features available.
 
-```
+```js
 let options = {
                 documentSize: "A4",
                 type: "share"
               }
 
-pdf.usingData( "<html> <h1>  Hello World  </h1> </html>", options )
-.then((stats)=> console.log('status', stats) )   // ok..., ok if it was able to handle the file to the OS.  
-.catch((err)=>console.err(err))
+pdf.usingData( "<html><h1>Hello World</h1></html>", options)
+    .then((stats)=> console.log('status', stats) )   // ok..., ok if it was able to handle the file to the OS.  
+    .catch((err)=>console.err(err))
 
 ```
 
