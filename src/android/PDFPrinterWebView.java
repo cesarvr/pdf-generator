@@ -39,6 +39,7 @@ public class PDFPrinterWebView extends WebViewClient {
     private boolean outputBase64;
 
     private String fileName;
+    private String orientation;
 
     public PDFPrinterWebView(PrintManager _printerManager, Context ctx, Boolean outputBase64) {
         printManager = _printerManager;
@@ -54,13 +55,22 @@ public class PDFPrinterWebView extends WebViewClient {
         this.fileName = fileName;
     }
 
+    public void setOrientation(String orientation) {
+        this.orientation = orientation;
+    }
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onPageFinished(WebView webView, String url) {
         super.onPageFinished(webView, url);
 
+        PrintAttributes.MediaSize mediaSize = PrintAttributes.MediaSize.ISO_A4.asLandscape();
+        if(!this.orientation.equals("landscape")) {
+            mediaSize = mediaSize.asPortrait();
+        }
+
         PrintAttributes attributes = new PrintAttributes.Builder()
-            .setMediaSize(PrintAttributes.MediaSize.ISO_A4)
+            .setMediaSize(mediaSize)
             .setResolution(new PrintAttributes.Resolution("pdf", "pdf", 600, 600))
             .setMinMargins(new PrintAttributes.Margins(10,10,10,5)).build();
             //.setMinMargins(PrintAttributes.Margins.NO_MARGINS).build();
@@ -84,9 +94,8 @@ public class PDFPrinterWebView extends WebViewClient {
         } else {
 
             PDFPrinter pdfPrinterAdapter = new PDFPrinter(webView, fileName);
-
             Log.e(TAG, "creating a new print job.");
-            printManager.print(PRINT_JOB, pdfPrinterAdapter, null );
+            printManager.print(PRINT_JOB, pdfPrinterAdapter, attributes );
 
             this.cordovaCallback.success(PRINT_SUCESS);
         }
