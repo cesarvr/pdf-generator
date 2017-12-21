@@ -67,7 +67,7 @@ document.addEventListener('deviceready', function(){
 
 The plugin expose a global variable named **pdf**, this variable expose the following functions.
 
-#### pdf.usingURL( url, options )
+#### pdf.fromURL( url, options )
 
 Creates a PDF using a URL, it download the document into an in memory Webkit object, and renders it into a PDF.
 
@@ -82,12 +82,12 @@ let options = {
                 type: 'base64'
               }
 
-pdf.usingURL('http://www.google.es', options)
+pdf.fromURL('http://www.google.es', options)
     .then(()=>'ok')
     .catch((err)=>console.err(err))
 ```
 
-#### pdf.usingData( url, options )
+#### pdf.fromData( url, options )
 
 Creates a PDF using string with the HTML representation, it download the document into an in memory Webkit object, and renders it into a PDF.
 
@@ -101,7 +101,7 @@ let options = {
                 type: 'base64'
               }
 
-pdf.usingData('<html><h1>Hello World</h1></html>', options)
+pdf.fromData('<html><h1>Hello World</h1></html>', options)
     .then((base64)=>'ok')   // it will
     .catch((err)=>console.err(err))
 ```
@@ -122,7 +122,7 @@ let options = {
                 type: 'base64'
               }
 
-pdf.usingData('<html><h1>Hello World</h1></html>', options)
+pdf.fromData('<html><h1>Hello World</h1></html>', options)
     .then((base64)=> console.log(base64) )   // returns base64:JVBERi0xLjQKJdPr6eEKMSAwIG9iago8PC9DcmVh...
     .catch((err)=>console.err(err))
 
@@ -139,7 +139,7 @@ let options = {
                 type: 'share'
               }
 
-pdf.usingData( '<html><h1>Hello World</h1></html>', options)
+pdf.fromData( '<html><h1>Hello World</h1></html>', options)
     .then((stats)=> console.log('status', stats) )   // ok..., ok if it was able to handle the file to the OS.  
     .catch((err)=>console.err(err))
 
@@ -158,7 +158,7 @@ let options = {
                 fileName: 'myFile.pdf'
               }
 
-pdf.usingData( '<html><h1>Hello World</h1></html>', options)
+pdf.fromData( '<html><h1>Hello World</h1></html>', options)
     .then((stats)=> console.log('status', stats) )   // ok..., ok if it was able to handle the file to the OS.  
     .catch((err)=>console.err(err))
 
@@ -231,7 +231,7 @@ export class HomePage {
                 console.log('DEVICE READY FIRED AFTER', (Date.now() - before), 'ms');
 
                 //generate the pdf.
-                cordova.plugins.pdf.usingData( '<html> <h1>  Hello World  </h1> </html>', options )
+                cordova.plugins.pdf.fromData( '<html> <h1>  Hello World  </h1> </html>', options )
                 .then(()=>'ok')
                 .catch((err)=>console.err(err))
   }
