@@ -104,11 +104,12 @@
 
 }
 
-+(BNHtmlPdfKit *)saveHTMLAsPdf:(NSString *)html pageSize:(BNPageSize)pageSize isLandscape:(BOOL)landscape  success:(void (^)(NSData *))completion failure:(void (^)(NSError *))failure{
++(BNHtmlPdfKit *)saveHTMLAsPdf:(NSString *)html pageSize:(BNPageSize)pageSize isLandscape:(BOOL)landscape baseUrl:(NSURL *baseUrl)baseUrl success:(void (^)(NSData *))completion failure:(void (^)(NSError *))failure{
     
     BNHtmlPdfKit *pdfKit = [[BNHtmlPdfKit alloc] initWithPageSize:pageSize isLandscape:landscape];
     pdfKit.dataCompletionBlock = completion;
     pdfKit.failureBlock = failure;
+	pdfKit.baseUrl = baseUrl;
     
     [pdfKit saveHtmlAsPdf:html];
     return pdfKit;

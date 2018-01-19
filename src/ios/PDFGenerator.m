@@ -100,10 +100,12 @@
     NSString* type =  [command argumentAtIndex:2 withDefault:@"A4"];
     NSString* _landscape =  [command argumentAtIndex:3 withDefault:@"portrait"];
     NSString* option     = [command argumentAtIndex:4 withDefault:@"base64"];
+	NSString* bUrl = [command argumentAtIndex:6 withDefault:NULL];
 
     
     BNPageSize pageSize;
     BOOL landscape = NO;
+	NSURL *baseUrl = nil;
     
     if ([type isEqualToString:@"A3"]) {
         pageSize = BNPageSizeA3;
@@ -117,6 +119,13 @@
         landscape = YES;
     }
     
+	if (bUrl != NULL) {
+		if (bUrl isEqualToString:@"BUNDLE") {
+			baseUrl = [[NSBundle mainBundle] bundleURL];
+		} else {
+			baseUrl = [[NSURL alloc] initWithString:bUrl];
+		}
+	}
     
     if (url != NULL)
         self.htmlPdfKit = [BNHtmlPdfKit saveUrlAsPdf:[NSURL URLWithString:url]
@@ -129,6 +138,7 @@
         self.htmlPdfKit = [BNHtmlPdfKit saveHTMLAsPdf:data
                                              pageSize:pageSize
                                           isLandscape:landscape
+										      baseUrl:baseUrl
                                               success:[self GetPDFHandler:command setOptions:option]
                                               failure:[self GetErrorHandler:command]];
 }

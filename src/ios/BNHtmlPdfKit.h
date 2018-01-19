@@ -247,16 +247,15 @@ Creates a BNHtmlPdfKit object to save a URL as PDF with BNPageSize.
 /**
  adding this method to get saveHTMLAsPdf
 
- @param url URL to save PDF of.
- @param filename Filename to save file as.
- @param pageSize CGSize of the page to be generated.
- @param topAndBottom Top and bottom margin size.
- @param leftAndRight Left and right margin size.
+ @param html An HTML string
+ @param pageSize CGSize of the page to be generated
+ @param isLandscape true if landscape orientation
+ @param baseUrl The home url of the internal webview (for pathing to css and such)
  @param completion Block to be notified when PDF file is generated.
  @param failure Block to be notified of failure.
  **/
 
-+(BNHtmlPdfKit *)saveHTMLAsPdf:(NSString *)html pageSize:(BNPageSize)pageSize isLandscape:(BOOL)landscape  success:(void (^)(NSData *))completion failure:(void (^)(NSError *))failure;
++(BNHtmlPdfKit *)saveHTMLAsPdf:(NSString *)html pageSize:(BNPageSize)pageSize isLandscape:(BOOL)landscape  baseUrl:(NSURL *baseUrl)baseUrl success:(void (^)(NSData *))completion failure:(void (^)(NSError *))failure;
 
 
 
