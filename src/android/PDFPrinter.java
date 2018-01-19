@@ -39,10 +39,12 @@ public class PDFPrinter extends PrintDocumentAdapter {
     private PrintAttributes configureAttributes(PrintAttributes attrs) {
 
         LOG.i(APPNAME, "Adding Printer Attributes");
-        return new PrintAttributes.Builder()
-            .setMediaSize(PrintAttributes.MediaSize.ISO_A4)
-            .setResolution(attrs.getResolution())
-            .setMinMargins(new PrintAttributes.Margins(5000,10,5000,10)).build();
+		// to solve issue #60 https://github.com/cesarvr/pdf-generator/issues/60
+		return attrs;
+        //return new PrintAttributes.Builder()
+        //    .setMediaSize(PrintAttributes.MediaSize.ISO_A4)
+        //    .setResolution(attrs.getResolution())
+        //    .setMinMargins(new PrintAttributes.Margins(5000,10,5000,10)).build();
     }
 
     @Override
