@@ -7,6 +7,7 @@ function opts(options){
   options.landscape  = options.landscape || "portrait";
   options.type = options.type || "base64";
   options.fileName  = options.fileName || "default.pdf";
+  options.baseUrl = options.baseUrl || null;
 
   return options;
 }
@@ -31,8 +32,9 @@ module.exports = {
          var landscape = options.landscape || "portrait";
          var type = options.type || "base64";
          var fileName = options.fileName || "default.pdf";
+		 var baseUrl = options.baseUrl;
 
-        cordova.exec(successCallback, errorCallback, "PDFService", "htmlToPDF", [ url, data, docSize, landscape, type, fileName ]);
+        cordova.exec(successCallback, errorCallback, "PDFService", "htmlToPDF", [ url, data, docSize, landscape, type, fileName, baseUrl ]);
     },
 
     fromURL: function(url, options){
@@ -69,7 +71,8 @@ debugger
                                     options.documentSize,
                                     options.landscape,
                                     options.type,
-                                    options.fileName ]);
+                                    options.fileName,
+									options.baseUrl ]);
       })
 
     }
