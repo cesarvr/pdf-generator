@@ -36,16 +36,7 @@ public class PDFPrinter extends PrintDocumentAdapter {
         this.webView = webView;
     }
 
-    private PrintAttributes configureAttributes(PrintAttributes attrs) {
 
-        LOG.i(APPNAME, "Adding Printer Attributes");
-		// to solve issue #60 https://github.com/cesarvr/pdf-generator/issues/60
-		return attrs;
-        //return new PrintAttributes.Builder()
-        //    .setMediaSize(PrintAttributes.MediaSize.ISO_A4)
-        //    .setResolution(attrs.getResolution())
-        //    .setMinMargins(new PrintAttributes.Margins(5000,10,5000,10)).build();
-    }
 
     @Override
     public void onStart() {
@@ -57,8 +48,8 @@ public class PDFPrinter extends PrintDocumentAdapter {
         CancellationSignal cancellationSignal, LayoutResultCallback callback, Bundle extras) {
       
         mWrappedInstance.onLayout(
-            this.configureAttributes(oldAttributes),
-            this.configureAttributes(newAttributes),
+            oldAttributes,
+            newAttributes,
             cancellationSignal,
             callback,
             extras
