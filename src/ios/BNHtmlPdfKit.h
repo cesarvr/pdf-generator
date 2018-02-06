@@ -255,7 +255,7 @@ Creates a BNHtmlPdfKit object to save a URL as PDF with BNPageSize.
  @param failure Block to be notified of failure.
  **/
 
-+(BNHtmlPdfKit *)saveHTMLAsPdf:(NSString *)html pageSize:(BNPageSize)pageSize isLandscape:(BOOL)landscape  baseUrl:(NSURL *baseUrl)baseUrl success:(void (^)(NSData *))completion failure:(void (^)(NSError *))failure;
++(BNHtmlPdfKit *)saveHTMLAsPdf:(NSString *)html pageSize:(BNPageSize)pageSize isLandscape:(BOOL)landscape  baseUrl:(NSURL *)baseUrl success:(void (^)(NSData *))completion failure:(void (^)(NSError *))failure;
 
 
 

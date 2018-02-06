@@ -120,7 +120,7 @@
     }
     
 	if (bUrl != NULL) {
-		if (bUrl isEqualToString:@"BUNDLE") {
+		if ([bUrl isEqualToString:@"BUNDLE"]) {
 			baseUrl = [[NSBundle mainBundle] bundleURL];
 		} else {
 			baseUrl = [[NSURL alloc] initWithString:bUrl];
