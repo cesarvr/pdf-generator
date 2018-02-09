@@ -4,6 +4,8 @@ Simple plugin to generate (offline) pdf. the plugin basically transform HTML to 
 
 The iOS HTML to PDF transformation is based in this work [BNHtmlPdfKit](https://github.com/brentnycum/BNHtmlPdfKit), I just add a new method to allow transformation between plain HTML to PDF.
 
+## Getting Started 
+Here you can find a [starting guide](https://dzone.com/articles/how-to-write-a-html-to-pdf-app-for-androidios-usin).
 
 ## Features
 
