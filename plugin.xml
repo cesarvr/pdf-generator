@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0" id="cordova-pdf-generator" version="1.9.8">
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0" id="cordova-pdf-generator" version="2.0.0">
 
     <name>PDFGenerator</name>
 

@@ -5,6 +5,7 @@ function opts(options){
 
   options.documentSize = options.documentSize || "A4";
   options.landscape  = options.landscape || "portrait";
+  options.orientation  = options.orientation || "portrait";
   options.type = options.type || "base64";
   options.fileName  = options.fileName || "default.pdf";
   options.baseUrl = options.baseUrl || null;

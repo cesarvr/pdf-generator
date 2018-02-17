@@ -4,7 +4,7 @@ import android.util.Log;
 import org.apache.cordova.LOG;
 
 public class PDFConfig {
-    private static final String APPNAME = PDFtoBase64.class.getSimpleName();
+    private static final String APPNAME ="PDFConfig";
     private PrintDocumentAdapter.LayoutResultCallback layout = null;
 
     public PDFConfig() {

@@ -86,6 +86,9 @@ public class PDFGenerator extends CordovaPlugin {
                         printerWebView.setFileName(fileNameArg);
                     }
 
+                    String pageType = args.getString(2);
+                    printerWebView.setPageType(pageType);
+
                     String orientation = args.getString(3);
                     if (orientation != null) {
                         printerWebView.setOrientation(orientation);

@@ -17,6 +17,7 @@ import android.util.Log;
 
 import java.io.File;
 import java.lang.System;
+import java.util.HashMap;
 
 import android.print.PDFtoBase64;
 import android.print.PrintAttributes;
@@ -40,11 +41,26 @@ public class PDFPrinterWebView extends WebViewClient {
 
     private String fileName;
     private String orientation;
+    PrintAttributes.MediaSize pageType;
+
+    HashMap<String, PrintAttributes.MediaSize> pageOptions = new HashMap<String, PrintAttributes.MediaSize>();
+
+
 
     public PDFPrinterWebView(PrintManager _printerManager, Context ctx, Boolean outputBase64) {
         printManager = _printerManager;
         this.ctx = ctx;
         this.outputBase64 = outputBase64;
+
+        pageOptions.put("A3", PrintAttributes.MediaSize.ISO_A3);
+        pageOptions.put("A4", PrintAttributes.MediaSize.ISO_A4);
+        pageOptions.put("A2", PrintAttributes.MediaSize.ISO_A2);
+        pageOptions.put("A1", PrintAttributes.MediaSize.ISO_A1);
+    }
+
+    public void setPageType(String type) {
+        pageType = pageOptions.get(type);
+        if(pageType == null) pageType = pageOptions.get("A4");
     }
 
     public void setCordovaCallback(CallbackContext cordovaCallback) {
@@ -64,9 +80,9 @@ public class PDFPrinterWebView extends WebViewClient {
     public void onPageFinished(WebView webView, String url) {
         super.onPageFinished(webView, url);
 
-        PrintAttributes.MediaSize mediaSize = PrintAttributes.MediaSize.ISO_A4.asLandscape();
-        if(!this.orientation.equals("landscape")) {
-            mediaSize = mediaSize.asPortrait();
+        PrintAttributes.MediaSize mediaSize = pageType.asLandscape();
+        if(!this.orientation.equalsIgnoreCase("landscape")) {
+            mediaSize =  pageType.asPortrait();
         }
 
         PrintAttributes attributes = new PrintAttributes.Builder()
