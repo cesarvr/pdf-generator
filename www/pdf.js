@@ -16,7 +16,8 @@ function opts(options){
 function validate(param, message){
   if(param === '' ||
      param === undefined ||
-     param === null
+     param === null || 
+     typeof param !== 'string'
    )
     throw message
 }
@@ -40,7 +41,6 @@ module.exports = {
 
     fromURL: function(url, options){
       return new Promise(function(resolve, reject){
-debugger
         validate(url, "URL is required")
         options = opts(options)
 
