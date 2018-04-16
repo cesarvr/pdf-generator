@@ -60,7 +60,6 @@ module.exports = {
 
     fromData: function(data, options){
       return new Promise(function(resolve, reject){
-        debugger
         validate(data, "String with HTML format is required")
         options = opts(options)
 
