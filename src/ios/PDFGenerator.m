@@ -134,13 +134,20 @@
                                              success:[self GetPDFHandler:command setOptions:option]
                                              failure:[self GetErrorHandler:command]];
     
-    if (data != NULL)
+    if (data != NULL){
+        NSURL *base =  [[NSURL alloc] initWithString:[[self.webViewEngine.URL absoluteString] stringByDeletingLastPathComponent]];
+        
         self.htmlPdfKit = [BNHtmlPdfKit saveHTMLAsPdf:data
                                              pageSize:pageSize
                                           isLandscape:landscape
-										      baseUrl:baseUrl
+										      baseUrl:base
                                               success:[self GetPDFHandler:command setOptions:option]
                                               failure:[self GetErrorHandler:command]];
+    
+    
+       
+          NSLog(@"url--> %@", [[base absoluteString] stringByDeletingLastPathComponent]);
+    }
 }
 
 
