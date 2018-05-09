@@ -7,6 +7,7 @@
    * [How to Install](#install)
    * [API](#api)
    * [How Tos](#howto)
+   * [Demo App](#demo)
 <!--te-->
 
 
@@ -342,7 +343,7 @@ Opening the pdf with other app menu.
  });
 ```
 
-
+<a name="demo"/>
 
 # Demo
 
