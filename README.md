@@ -1,15 +1,29 @@
 # cordova-pdf-generator
 
-Simple plugin to generate (offline) pdf. the plugin basically transform HTML to PDF and also provide the mechanism to share the pdf to other apps like Mail, etc. For now works in iOS and Android, if you want to add other platform feel free contribute.   
+## Index 
+<!--ts-->
+   * [Getting Started](#gstarted)
+   * [Features](#features)
+   * [How to Install](#install)
+   * [API](#api)
+   * [How Tos](#howto)
+<!--te-->
+
+
+Simple plugin to generate (offline) pdf. the plugin transform HTML to PDF and also provide the mechanism to share the pdf to other apps like Mail, etc. For now works in iOS and Android, if you want to add other platform feel free contribute.   
 
 The iOS HTML to PDF transformation is based in this work [BNHtmlPdfKit](https://github.com/brentnycum/BNHtmlPdfKit), I just add a new method to allow transformation between plain HTML to PDF.
 
+
+<a name="gstarted"/>
 ## Getting Started 
 
 ![Demo](https://raw.githubusercontent.com/cesarvr/pdf-generator/master/img/pdf-generator.gif)
 
 Here you can find a [starting guide](https://dzone.com/articles/how-to-write-a-html-to-pdf-app-for-androidios-usin).
 
+
+<a name="features"/>
 ## Features
 
 - Generates a PDF document using a URL or HTML.
@@ -22,6 +36,7 @@ Here you can find a [starting guide](https://dzone.com/articles/how-to-write-a-h
 * Android
 * iOS
 
+<a name="install"/>
 ## Installing the easy way (Cordova CLI)
 
     cordova plugin add cordova-pdf-generator
@@ -55,7 +70,7 @@ Install the plugin
     $ cordova plugin add ../pdf-generator
 
 
-
+<a name="api"/>
 ## API
 
 Before using the plugin just make sure that the device is ready by listening to the onDeviceReady event:
@@ -170,9 +185,37 @@ pdf.fromData( '<html><h1>Hello World</h1></html>', options)
 ```
 
 
+<a name="howto"/>
+
+#### How Tos
+
+##### Loading an internal CSS, using raw HTML. 
+```js 
+
+# cssFile have to be the following: 
+# iOS: www/<css-folder>/<your-file.css>
+# Android: file:///android_asset/www/<css-folder>/<your-file.css>
+
+function createPDF(cssFile) {
+  var opts = {
+      documentSize: "A4",
+      landscape: "portrait",
+      type: "share",
+      fileName: 'my-pdf.pdf'
+  }
+
+  var payload = _.template(' <head><link rel="stylesheet" href="<%=css_file%>"></head><body> <h1> Hello World </h1></body>')
+
+  pdf.fromData(payload({css_file: cssFile}),
+          opts)
+      .then(progressHide)
+      .catch(progressHide);
+}
+
+```
 
 
-#### Other Use Cases
+
 ##### Loading from Device Filesystem.
 
 ```js
