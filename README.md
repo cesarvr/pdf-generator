@@ -16,6 +16,7 @@ The iOS HTML to PDF transformation is based in this work [BNHtmlPdfKit](https://
 
 
 <a name="gstarted"/>
+
 ## Getting Started 
 
 ![Demo](https://raw.githubusercontent.com/cesarvr/pdf-generator/master/img/pdf-generator.gif)
@@ -24,6 +25,7 @@ Here you can find a [starting guide](https://dzone.com/articles/how-to-write-a-h
 
 
 <a name="features"/>
+
 ## Features
 
 - Generates a PDF document using a URL or HTML.
@@ -37,6 +39,7 @@ Here you can find a [starting guide](https://dzone.com/articles/how-to-write-a-h
 * iOS
 
 <a name="install"/>
+
 ## Installing the easy way (Cordova CLI)
 
     cordova plugin add cordova-pdf-generator
@@ -71,6 +74,7 @@ Install the plugin
 
 
 <a name="api"/>
+
 ## API
 
 Before using the plugin just make sure that the device is ready by listening to the onDeviceReady event:
