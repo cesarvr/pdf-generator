@@ -393,7 +393,7 @@
 
 	self.webView.configuration.suppressesIncrementalRendering = YES;
 
-	[self.webView loadRequest:[NSURLRequest requestWithURL:url]];
+    [self.webView loadFileURL:url allowingReadAccessToURL:[url URLByDeletingLastPathComponent]];
 }
 
 - (void)saveWebViewAsPdf:(WKWebView *)webView {
