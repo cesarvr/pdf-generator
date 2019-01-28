@@ -413,12 +413,7 @@
 #pragma mark - WkNavigationDelegate
 
 -(void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler{
-    NSURLRequest *request  = navigationAction.request;
-    if([request.URL.absoluteString hasPrefix:@"http://"]||[self.baseUrl.absoluteString hasPrefix:@"ionic:"] || [request.URL.absoluteString hasPrefix:@"https://"]) {
         decisionHandler(WKNavigationActionPolicyAllow);
-    }else{
-        decisionHandler(WKNavigationActionPolicyCancel);
-    }
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
