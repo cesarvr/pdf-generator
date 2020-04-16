@@ -431,21 +431,6 @@
     }];
 }
 
-
-- (void)webView:(UIWebView *)webView didFailNavigation:(null_unspecified WKNavigation *)navigation withError:(nonnull NSError *)error {
-    [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(_timeout) object:nil];
-    
-    if (self.failureBlock) {
-        self.failureBlock(error);
-    }
-    
-    if ([self.delegate respondsToSelector:@selector(htmlPdfKit:didFailWithError:)]) {
-        [self.delegate htmlPdfKit:self didFailWithError:error];
-    }
-    
-    self.webView = nil;
-}
-
 #pragma mark - Private Methods
 
 - (void)_timeout {
