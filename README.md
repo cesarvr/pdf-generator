@@ -172,7 +172,7 @@ pdf.fromData( '<html><h1>Hello World</h1></html>', options)
 
 
 
-##### filename
+##### fileName
 
 - You can specify the name of the PDF file.  
 

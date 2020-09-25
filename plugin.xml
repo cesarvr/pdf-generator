@@ -25,7 +25,6 @@
         <source-file src="src/android/PDFPrinter.java" target-dir="src/com/pdf/generator/"/>
         <source-file src="src/android/PDFPrinterWebView.java" target-dir="src/com/pdf/generator/"/>
         <source-file src="src/android/PDFtoBase64.java" target-dir="src/com/pdf/generator/"/>
-        <source-file src="src/android/PDFConfig.java" target-dir="src/com/pdf/generator/"/>
 
     </platform>
 
