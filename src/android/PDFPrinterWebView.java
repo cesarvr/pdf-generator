@@ -3,49 +3,35 @@ package com.pdf.generator;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
-import android.os.CancellationSignal;
-import android.os.ParcelFileDescriptor;
-import android.print.PageRange;
+import android.print.PDFtoBase64;
+import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
 import android.print.PrintManager;
-import android.util.Printer;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import org.apache.cordova.CallbackContext;
-import android.util.Log;
+import org.apache.cordova.LOG;
 
-import java.io.File;
-import java.lang.System;
 import java.util.HashMap;
-
-import android.print.PDFtoBase64;
-import android.print.PrintAttributes;
-import android.os.Environment;
 
 /**
  * Created by cesar on 22/01/2017.
  */
 
 public class PDFPrinterWebView extends WebViewClient {
-
-    private PrintManager printManager = null;
     private static final String TAG = "PDFPrinterWebView";
-    private static final String PRINT_JOB = "PDFCordovaPlugin"; 
-    private static final String PRINT_SUCESS = "sucess";
+    private static final String PRINT_JOB = "PDFCordovaPlugin";
+    private static final String PRINT_SUCCESS = "success";
 
-    //Cordova Specific, delete this safely if not using cordova.
+    private PrintManager printManager;
     private CallbackContext cordovaCallback;
     private Context ctx;
     private boolean outputBase64;
-
     private String fileName;
     private String orientation;
-    PrintAttributes.MediaSize pageType;
-
-    HashMap<String, PrintAttributes.MediaSize> pageOptions = new HashMap<String, PrintAttributes.MediaSize>();
-
-
+    private PrintAttributes.MediaSize pageType;
+    private HashMap<String, PrintAttributes.MediaSize> pageOptions = new HashMap<>();
 
     public PDFPrinterWebView(PrintManager _printerManager, Context ctx, Boolean outputBase64) {
         printManager = _printerManager;
@@ -60,7 +46,9 @@ public class PDFPrinterWebView extends WebViewClient {
 
     public void setPageType(String type) {
         pageType = pageOptions.get(type);
-        if(pageType == null) pageType = pageOptions.get("A4");
+        if (pageType == null) {
+            pageType = pageOptions.get("A4");
+        }
     }
 
     public void setCordovaCallback(CallbackContext cordovaCallback) {
@@ -81,40 +69,34 @@ public class PDFPrinterWebView extends WebViewClient {
         super.onPageFinished(webView, url);
 
         PrintAttributes.MediaSize mediaSize = pageType.asLandscape();
-        if(!this.orientation.equalsIgnoreCase("landscape")) {
-            mediaSize =  pageType.asPortrait();
+        if (!"landscape".equalsIgnoreCase(this.orientation)) {
+            mediaSize = pageType.asPortrait();
         }
 
         PrintAttributes attributes = new PrintAttributes.Builder()
-            .setMediaSize(mediaSize)
-            .setResolution(new PrintAttributes.Resolution("pdf", "pdf", 600, 600))
-            .setMinMargins(new PrintAttributes.Margins(10,10,10,5)).build();
-            //.setMinMargins(PrintAttributes.Margins.NO_MARGINS).build();
+                .setMediaSize(mediaSize)
+                .setResolution(new PrintAttributes.Resolution("pdf", "pdf", 600, 600))
+                .setMinMargins(new PrintAttributes.Margins(10, 10, 10, 5)).build();
 
-
-        PrintDocumentAdapter printAdapter = null;
-
-        Log.e(TAG, "creating a new WebView adapter.");
-        if (Build.VERSION.SDK_INT >= 21) {
-            printAdapter = webView.createPrintDocumentAdapter(fileName);
-        } else {
-            printAdapter = webView.createPrintDocumentAdapter();
-        }
-
+        PrintDocumentAdapter printAdapter;
 
         if (this.outputBase64) {
-            Log.e(TAG, "generating a base64 representation of the PDF");
-            PDFtoBase64 pdfToBase64 = new PDFtoBase64(attributes, this.ctx, this.cordovaCallback);
+            LOG.d(TAG, "creating a new WebView print adapter.");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                printAdapter = webView.createPrintDocumentAdapter(fileName);
+            } else {
+                printAdapter = webView.createPrintDocumentAdapter();
+            }
+
+            LOG.d(TAG, "generating a base64 representation of the PDF");
+            PDFtoBase64 pdfToBase64 = new PDFtoBase64(attributes, this.ctx, this.cordovaCallback, webView);
             pdfToBase64.process(printAdapter);
 
         } else {
-
+	        LOG.d(TAG, "creating a new print job.");
             PDFPrinter pdfPrinterAdapter = new PDFPrinter(webView, fileName);
-            Log.e(TAG, "creating a new print job.");
-            printManager.print(PRINT_JOB, pdfPrinterAdapter, attributes );
-
-            this.cordovaCallback.success(PRINT_SUCESS);
+            printManager.print(PRINT_JOB, pdfPrinterAdapter, attributes);
+            this.cordovaCallback.success(PRINT_SUCCESS);
         }
     }
-
 }
