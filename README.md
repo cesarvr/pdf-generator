@@ -1,3 +1,19 @@
+## Forked Repository
+
+This is a forked repository from [https://github.com/cesarvr/pdf-generator](https://github.com/cesarvr/pdf-generator).
+
+The purpose of this forked repository is to fix the font size settings for generating the pdf.
+
+### Changes
+
+* Android - Set the default zoom to 100%, so that when user changes their phone settings it won't affect the generation of pdf.
+
+---
+
+Below contains the original content of README.md file from the main author of the plugin.
+
+---
+
 # cordova-pdf-generator
 
 ## Index 

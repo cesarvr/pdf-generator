@@ -12,6 +12,7 @@ import android.print.PrintManager;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
+import android.webkit.WebSettings;
 
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
@@ -102,6 +103,9 @@ public class PDFGenerator extends CordovaPlugin {
 
                     if (args.getString(1) != null && !args.getString(1).equals("null"))
                         webview.loadDataWithBaseURL(null,args.getString(1), "text/HTML","UTF-8", null);
+
+                    WebSettings settings = webview.getSettings();
+                    settings.setTextZoom(100);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
